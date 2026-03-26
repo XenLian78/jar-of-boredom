@@ -1,34 +1,26 @@
-
 <!DOCTYPE html>
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bored Jar - Το Βάζο μου</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Το Βάζο σου</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="app-container">
         <div class="top-nav">
-            <a href="add-idea.html">&lt; Πίσω</a>
+            <a href="add-idea.html" class="nav-link">❮ Πίσω</a>
         </div>
-
         <div class="main-card">
-            <h2 style="color: var(--dark-text); font-size: 24px; margin-bottom: 5px;">ΤΟ ΒΑΖΟ ΣΟΥ</h2>
-            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">Διαχείριση ιδεών</p>
-
-            <div id="jarList" class="idea-list-container">
+            <h2 class="main-title">ΤΟ ΒΑΖΟ ΣΟΥ</h2>
+            <p style="margin-bottom:20px; color:#666;">Διαχείριση ιδεών</p>
+            
+            <div id="jarList" style="width:100%; flex-grow:1; overflow-y:auto;">
                 </div>
 
-            <button class="start-btn btn-orange" onclick="window.location.href='random-draw.html'">ΕΝΑΡΞΗ ΠΑΙΧΝΙΔΙΟΥ</button>
+            <button class="orange-btn" onclick="window.location.href='random-draw.html'">ΕΝΑΡΞΗ ΠΑΙΧΝΙΔΙΟΥ</button>
         </div>
-
-        <footer>
-            <img src="assets/images/logo-bored-jar.svg" style="width: 80px;" alt="Bored Jar Logo">
-        </footer>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
