@@ -277,7 +277,3 @@ footer {
     padding: 15px;
     margin-top: auto;
 }
-2. script.js (Ολοκληρωμένος - Χωρίς Λογική Καπακιού)
-JavaScript
-// Αρχικοποίηση λίστας ιδεών από το LocalStorage
-let savedIdeas = JSON.parse(localStorage.getItem('myIdeas')) || [];
