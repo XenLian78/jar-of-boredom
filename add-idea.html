@@ -1,32 +1,41 @@
+
+
 <!DOCTYPE html>
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Πρόσθεσε Ιδέα</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bored Jar - Πρόσθεσε Ιδέα</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
-        <div class="top-nav">
-            <a href="index.html" class="nav-link">❮ Πίσω</a>
-        </div>
-        <div class="main-card">
-            <h2 class="main-title" style="font-size: 22px;">ΓΡΑΨΕ ΜΙΑ ΙΔΕΑ ΚΑΙ ΤΟΠΟΘΕΤΗΣΕ ΤΗΝ ΣΤΟ ΒΑΖΟ</h2>
-            <p style="color: #666; font-size: 14px;">Επανέλαβε για περισσότερες ιδέες</p>
-            
-            <div class="input-group">
-                <input type="text" id="ideaInput" placeholder="Γράψε μια ιδέα...">
-                <button class="gray-btn" style="margin-top:15px;" id="addBtn">ΒΑΛΕ ΤΗΝ ΙΔΕΑ ΣΤΟ ΒΑΖΟ</button>
-            </div>
 
-            <button class="orange-btn" onclick="window.location.href='jar-view.html'">ΔΕΣ ΤΟ ΒΑΖΟ ΣΟΥ</button>
+    <div class="app-container">
+        
+        <div class="top-nav" style="justify-content: flex-end;">
+            <a href="jar-view.html">Παράλειψη &gt;</a>
+        </div>
+
+        <div class="main-card" style="text-align: center;">
+            <h2 style="color: var(--dark-text); font-size: 22px; margin-bottom: 10px;">ΓΡΑΨΕ ΜΙΑ ΙΔΕΑ ΚΑΙ<br>ΤΟΠΟΘΕΤΗΣΕ ΤΗΝ ΣΤΟ ΒΑΖΟ</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Επανέλαβε για περισσότερες ιδέες</p>
+
+            <input type="text" id="ideaInput" class="idea-input" placeholder="Γράψε μια ιδέα...">
+
+            <button class="start-btn" id="addBtn" style="margin-bottom: 15px;">Βάλε την ιδέα στο βάζο</button>
             
-            <div style="margin-top: auto;">
-                <img src="assets/images/main_characters.png" style="width:120px; opacity: 0.8;">
+            <button class="start-btn btn-orange" onclick="window.location.href='jar-view.html'">Δες το βάζο σου</button>
+
+            <div style="margin-top: auto; padding-top: 20px;">
+                <img src="assets/images/idea-man.png" style="width: 120px;" alt="Idea Character">
             </div>
         </div>
+
+        <footer>
+            <img src="assets/images/logo-bored-jar.svg" style="width: 80px;" alt="Bored Jar Logo">
+        </footer>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
