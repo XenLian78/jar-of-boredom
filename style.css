@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&display=swap');
+
+
+/* --- 1. FONTS & DESIGN SYSTEM --- */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;600&display=swap');
 
 :root {
     --bg-main: #AAB2C5;
@@ -6,101 +9,202 @@
     --dark-text: #1D2D50;
     --brand-orange: #FF941A;
     --btn-gray: #E0E4EC;
+    --success-green: #28a745;
+    --danger-red: #ff4d4d;
     --font-main: 'Fredoka', sans-serif;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body {
     background-color: #1a1a1a;
-    display: flex; justify-content: center; align-items: center;
-    min-height: 100vh; font-family: var(--font-main);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-family: var(--font-main);
+    overflow: hidden;
 }
 
+/* --- 2. CONTAINER (RESPONSIVE & SAFE AREA) --- */
 .app-container {
     background-color: var(--bg-main);
-    width: 100%; max-width: 450px; height: 100vh;
-    display: flex; flex-direction: column;
-    padding: calc(10px + env(safe-area-inset-top)) 20px 20px 20px;
+    width: 100%;
+    max-width: 450px;
+    height: 100vh;
+    max-height: 900px;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: env(safe-area-inset-top) 20px 20px 20px; /* Safe area για κινητά */
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
 }
 
-/* --- NAVIGATION --- */
-.top-nav {
-    display: flex; justify-content: flex-start;
-    padding: 10px 0; margin-bottom: 5px;
+@media (min-width: 451px) {
+    .app-container {
+        border-radius: 40px;
+        height: 95vh;
+    }
 }
 
-.nav-link {
-    color: var(--dark-text); text-decoration: none;
-    font-weight: 600; font-size: 16px; display: flex; align-items: center;
-}
-
-/* --- CARDS & TITLES --- */
-.main-card {
-    background: var(--white-card); border-radius: 35px;
-    flex-grow: 1; padding: 25px; display: flex;
-    flex-direction: column; align-items: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow-y: auto;
+/* --- 3. HEADER & TYPOGRAPHY --- */
+header {
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 15px;
 }
 
 .main-title {
-    color: var(--dark-text); font-size: 28px;
-    text-align: center; margin-bottom: 20px; line-height: 1.2;
+    color: var(--dark-text);
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.2;
 }
 
-/* --- CATEGORIES GRID --- */
+/* --- 4. MAIN CARD --- */
+.main-card {
+    background: var(--white-card);
+    border-radius: 35px;
+    flex-grow: 1;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    overflow-y: auto;
+    position: relative;
+}
+
+/* --- 5. CATEGORIES GRID --- */
 .categories-grid {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 15px; width: 100%; margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    width: 100%;
+    margin-bottom: 15px;
 }
 
-.cat { display: flex; flex-direction: column; align-items: center; text-align: center; }
-.cat img { width: 55px; height: auto; margin-bottom: 5px; }
-.cat p { font-size: 12px; color: var(--dark-text); font-weight: 600; }
-
-/* --- INPUTS & LISTS --- */
-.input-group { width: 100%; margin: 20px 0; }
-input[type="text"] {
-    width: 100%; padding: 15px; border-radius: 15px;
-    border: 2px solid var(--btn-gray); font-family: var(--font-main);
+.cat {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.idea-item {
-    width: 100%; display: flex; align-items: center;
-    background: #f8f9fa; padding: 12px 15px;
-    border-radius: 15px; margin-bottom: 10px;
+.cat img {
+    width: 60px;
+    height: auto;
+    margin-bottom: 5px;
 }
 
-.idea-text { flex-grow: 1; margin-left: 10px; color: var(--dark-text); }
-.delete-btn { color: #ff4d4d; cursor: pointer; font-weight: bold; font-size: 20px; padding: 0 5px; }
-
-/* --- BUTTONS (Orange Style) --- */
-.orange-btn {
-    background-color: var(--brand-orange); color: white;
-    border: none; width: 100%; padding: 18px;
-    font-size: 18px; font-weight: 600; border-radius: 20px;
-    cursor: pointer; text-transform: uppercase;
-    font-family: var(--font-main); margin-top: 10px;
-    box-shadow: 0 5px 15px rgba(255, 148, 26, 0.3);
+.cat p {
+    font-size: 13px;
+    color: var(--dark-text);
+    font-weight: 400;
 }
 
-.gray-btn {
-    background-color: var(--btn-gray); color: var(--dark-text);
-    border: none; width: 100%; padding: 15px;
-    border-radius: 15px; cursor: pointer; font-family: var(--font-main);
-    font-weight: 600; margin-bottom: 10px;
+.cat:hover { transform: scale(1.1); }
+.cat:active { transform: scale(0.95); }
+
+/* --- 6. BUTTONS --- */
+.start-btn {
+    background-color: var(--btn-gray);
+    color: var(--dark-text);
+    border: none;
+    width: 100%;
+    padding: 18px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-family: var(--font-main);
 }
 
-/* --- DRAW ANIMATION --- */
-.jar-wrapper { position: relative; width: 150px; margin: 20px 0; }
-#jarLid { position: absolute; top: -35px; width: 100%; transition: 0.5s; }
-.animate-lid { transform: translateY(-100px) rotate(30deg); opacity: 0; }
-.animate-jump { animation: jump 0.5s ease infinite; }
-
-@keyframes jump {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
+.btn-orange {
+    background-color: var(--brand-orange) !important;
+    color: white !important;
+    box-shadow: 0 6px 15px rgba(255, 148, 26, 0.3);
 }
 
-footer { text-align: center; padding: 15px; }
+.start-btn:hover { transform: translateY(-3px); filter: brightness(1.05); }
+
+/* --- 7. DRAW AREA & ANIMATIONS --- */
+.draw-area {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.jar-wrapper { position: relative; width: 160px; transition: transform 0.3s; }
+
+#jarLid {
+    position: absolute;
+    top: -35px; left: 0; width: 100%; z-index: 2;
+}
+
+#jarBody { width: 100%; display: block; z-index: 1; }
+
+#cloudContainer {
+    position: absolute;
+    top: -60px;
+    width: 260px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+#cloudImg { width: 100%; position: absolute; }
+#selectedIdea {
+    position: relative; z-index: 4;
+    padding: 20px; font-weight: 600;
+    color: var(--dark-text); font-size: 20px;
+    text-align: center; width: 80%;
+}
+
+/* Animations */
+@keyframes shakeJump {
+    0% { transform: translate(0,0) rotate(0); }
+    25% { transform: translate(-5px, -10px) rotate(-2deg); }
+    50% { transform: translate(5px, -15px) rotate(2deg); }
+    75% { transform: translate(-3px, -5px) rotate(-1deg); }
+    100% { transform: translate(0,0) rotate(0); }
+}
+
+@keyframes lidFly {
+    0% { transform: translateY(0) rotate(0); opacity: 1; }
+    100% { transform: translateY(-150px) rotate(45deg); opacity: 0; }
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-shake { animation: shakeJump 0.4s infinite; }
+.animate-lid { animation: lidFly 0.7s forwards; }
+.animate-pop { animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; display: flex !important; }
+
+/* Empty State Styling */
+.empty-msg {
+    text-align: center;
+    color: #888;
+    font-size: 16px;
+    margin-top: 40px;
+    line-height: 1.5;
+}
+
+footer { text-align: center; padding: 15px; margin-top: auto; }
+
+
