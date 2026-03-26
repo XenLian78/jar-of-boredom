@@ -1,26 +1,26 @@
 
 
-// Φόρτωση ιδεών
+// Δεδομένα
 let savedIdeas = JSON.parse(localStorage.getItem('myIdeas')) || [];
 
-// --- ΛΕΙΤΟΥΡΓΙΑ ΠΡΟΣΘΗΚΗΣ (add-idea.html) ---
+// ΠΡΟΣΘΗΚΗ ΙΔΕΑΣ
 const addBtn = document.getElementById('addBtn');
 const ideaInput = document.getElementById('ideaInput');
-
 if (addBtn) {
     addBtn.onclick = function() {
         const text = ideaInput.value.trim();
         if (text) {
-            // Αποθηκεύουμε ως αντικείμενο για να δουλεύει το checkbox
             savedIdeas.push({ text: text, checked: true });
             localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
             ideaInput.value = "";
-            alert("Η ιδέα προστέθηκε!");
+            alert("Η ιδέα μπήκε στο βάζο!");
+        } else {
+            alert("Γράψε μια ιδέα!");
         }
     };
 }
 
-// --- ΛΕΙΤΟΥΡΓΙΑ ΛΙΣΤΑΣ (jar-view.html) ---
+// ΛΙΣΤΑ ΙΔΕΩΝ (jar-view.html)
 const jarList = document.getElementById('jarList');
 if (jarList) {
     renderList();
@@ -29,46 +29,37 @@ if (jarList) {
 function renderList() {
     jarList.innerHTML = "";
     savedIdeas.forEach((idea, index) => {
-        const div = document.createElement('div');
-        div.className = "idea-item";
-        // Αν η ιδέα είναι παλιό format (string), τη μετατρέπουμε
+        const item = document.createElement('div');
+        item.style = "display:flex; align-items:center; background:#f8f9fa; padding:10px; margin-bottom:8px; border-radius:12px; width:100%;";
         const ideaText = typeof idea === 'string' ? idea : idea.text;
         const isChecked = typeof idea === 'string' ? true : idea.checked;
-
-        div.innerHTML = `
-            <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleCheck(${index})">
-            <span class="idea-text">${ideaText}</span>
-            <span class="delete-btn" onclick="deleteIdea(${index})">×</span>
+        
+        item.innerHTML = `
+            <input type="checkbox" ${isChecked ? 'checked' : ''} onchange="toggleCheck(${index})" style="width:18px; height:18px;">
+            <span style="flex-grow:1; margin-left:10px;">${ideaText}</span>
+            <span onclick="deleteIdea(${index})" style="color:red; cursor:pointer; font-weight:bold; font-size:18px;">×</span>
         `;
-        jarList.appendChild(div);
+        jarList.appendChild(item);
     });
 }
 
-window.toggleCheck = function(index) {
-    if (typeof savedIdeas[index] === 'string') {
-        savedIdeas[index] = { text: savedIdeas[index], checked: false };
-    } else {
-        savedIdeas[index].checked = !savedIdeas[index].checked;
-    }
+window.toggleCheck = function(i) {
+    if(typeof savedIdeas[i] === 'string') savedIdeas[i] = {text: savedIdeas[i], checked: false};
+    else savedIdeas[i].checked = !savedIdeas[i].checked;
     localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
 };
 
-window.deleteIdea = function(index) {
-    savedIdeas.splice(index, 1);
+window.deleteIdea = function(i) {
+    savedIdeas.splice(i, 1);
     localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
     renderList();
 };
 
-// --- ΛΕΙΤΟΥΡΓΙΑ ΚΛΗΡΩΣΗΣ (random-draw.html) ---
-let currentDrawIndex = -1;
-
+// ΚΛΗΡΩΣΗ (random-draw.html)
+let currentIdx = -1;
 window.drawIdea = function() {
-    const activeIdeas = savedIdeas.filter(i => (typeof i === 'string') || i.checked !== false);
-    
-    if (activeIdeas.length === 0) {
-        alert("Δεν υπάρχουν επιλεγμένες ιδέες στο βάζο!");
-        return;
-    }
+    const active = savedIdeas.filter(i => (typeof i === 'string') || i.checked);
+    if (active.length === 0) return alert("Το βάζο είναι άδειο!");
 
     const jar = document.getElementById('fullJar');
     const cloud = document.getElementById('cloudContainer');
@@ -83,10 +74,9 @@ window.drawIdea = function() {
 
     setTimeout(() => {
         jar.classList.remove('shaking');
-        const randomObj = activeIdeas[Math.floor(Math.random() * activeIdeas.length)];
-        currentDrawIndex = savedIdeas.indexOf(randomObj);
-        
-        ideaText.innerText = typeof randomObj === 'string' ? randomObj : randomObj.text;
+        const picked = active[Math.floor(Math.random() * active.length)];
+        currentIdx = savedIdeas.indexOf(picked);
+        ideaText.innerText = typeof picked === 'string' ? picked : picked.text;
         cloud.classList.add('cloud-active');
         resultBtns.style.display = 'flex';
     }, 1200);
@@ -94,12 +84,12 @@ window.drawIdea = function() {
 
 window.drawAgain = function() {
     document.getElementById('cloudContainer').classList.remove('cloud-active');
-    drawIdea(); // Άμεση νέα κλήρωση
+    drawIdea();
 };
 
 window.doneIdea = function() {
-    if (currentDrawIndex > -1) {
-        savedIdeas.splice(currentDrawIndex, 1);
+    if(currentIdx > -1) {
+        savedIdeas.splice(currentIdx, 1);
         localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
         window.location.href = 'jar-view.html';
     }
