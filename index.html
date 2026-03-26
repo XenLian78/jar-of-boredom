@@ -1,20 +1,15 @@
-
 <!DOCTYPE html>
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bored Jar - Αρχική</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Bored Jar</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="app-container">
         <header>
-            <h1 class="main-title">
-                <span>Welcome to</span><br>
-                <span>Bored Jar</span>
-            </h1>
+            <h1 class="main-title">Welcome to<br>Bored Jar</h1>
         </header>
 
         <div class="main-card">
@@ -27,18 +22,17 @@
                 <div class="cat"><img src="assets/images/relax-icon.png" alt="Relax"><p>Relax</p></div>
             </div>
 
-            <div style="margin-top: 10px; width: 100%; text-align: center; margin-bottom: 25px;">
-                <img src="assets/images/main_characters.png" style="width: 90%; max-width: 300px; display: inline-block;" alt="Characters">
+            <div style="flex-grow:1; display:flex; align-items:center; justify-content:center; width:100%;">
+                <img src="assets/images/main_characters.png" style="width:85%; max-width:280px;" alt="Characters">
             </div>
 
             <button class="start-btn btn-orange" onclick="window.location.href='add-idea.html'">ΞΕΚΙΝΑΜΕ</button>
         </div>
 
         <footer>
-            <img src="assets/images/logo-bored-jar.svg" style="width: 80px;" alt="Bored Jar Logo">
+            <img src="assets/images/logo-bored-jar.svg" style="width:70px;" alt="Logo">
         </footer>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
