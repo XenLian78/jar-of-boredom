@@ -1,38 +1,47 @@
+
+
 <!DOCTYPE html>
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Κλήρωση</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bored Jar - Κλήρωση!</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-container">
         <div class="top-nav">
-            <a href="jar-view.html" class="nav-link">❮ Πίσω</a>
+            <a href="jar-view.html">&lt; Πίσω</a>
         </div>
-        <div class="main-card" style="justify-content: center;">
-            
-            <div id="cloudContainer" style="display:none; text-align:center; margin-bottom:20px;">
-                <div style="background: #f0f0f0; padding: 20px; border-radius: 50px; position: relative;">
-                    <p id="selectedIdea" style="font-size: 22px; font-weight: 600;"></p>
+
+        <div class="main-card">
+            <div class="draw-area">
+                <div id="cloudContainer">
+                    <img src="assets/images/cloud-bubble.png" id="cloudImg" alt="Cloud">
+                    <div id="selectedIdea">Εδώ θα μπει η ιδέα!</div>
                 </div>
-                <div style="width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-top: 20px solid #f0f0f0; margin: 0 auto;"></div>
+
+                <div class="jar-wrapper" id="fullJar">
+                    <img src="assets/images/jar-lid.png" id="jarLid" alt="Lid">
+                    <img src="assets/images/jar-body.png" id="jarBody" alt="Jar">
+                </div>
             </div>
 
-            <div class="jar-wrapper" id="jar">
-                <img src="assets/images/jar-lid.png" id="jarLid">
-                <img src="assets/images/jar-body.png" id="jarBody">
+            <div id="actionButtons" style="width: 100%;">
+                <button class="start-btn btn-orange" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΓΙΑ ΜΕΝΑ</button>
             </div>
-
-            <button id="drawBtn" class="orange-btn" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΓΙΑ ΜΕΝΑ</button>
             
-            <div id="postDrawButtons" style="display:none; width:100%; gap:10px;">
-                <button class="gray-btn" style="background:#28a745; color:white;" onclick="doneIdea()">ΤΟ ΕΚΑΝΑ!</button>
-                <button class="gray-btn" onclick="location.reload()">ΑΛΛΟ ΕΝΑ...</button>
+            <div id="resultButtons" style="width: 100%; display: none; gap: 15px;">
+                <button class="start-btn" onclick="doneIdea()" style="background-color: var(--success-green); color: white;">ΤΟ ΕΚΑΝΑ!</button>
+                <button class="start-btn" onclick="location.reload()">ΑΛΛΟ ΕΝΑ...</button>
             </div>
         </div>
+
+        <footer>
+            <img src="assets/images/logo-bored-jar.svg" style="width: 80px;" alt="Bored Jar Logo">
+        </footer>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
