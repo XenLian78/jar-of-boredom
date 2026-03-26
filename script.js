@@ -3,20 +3,16 @@
 // Αρχικοποίηση λίστας ιδεών από το LocalStorage
 let savedIdeas = JSON.parse(localStorage.getItem('myIdeas')) || [];
 
-// -----------------------------------------------------------------
-// ΣΕΛΙΔΑ: add-idea.html
-// -----------------------------------------------------------------
+// --- ΣΕΛΙΔΑ: add-idea.html ---
 const addBtn = document.getElementById('addBtn');
 const ideaInput = document.getElementById('ideaInput');
 
 if (addBtn && ideaInput) {
     addBtn.addEventListener('click', () => {
         const newIdea = ideaInput.value.trim();
-        
         if (newIdea !== "") {
             savedIdeas.push(newIdea);
             localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
-            
             alert("Η ιδέα '" + newIdea + "' μπήκε στο βάζο!");
             ideaInput.value = "";
         } else {
@@ -25,9 +21,7 @@ if (addBtn && ideaInput) {
     });
 }
 
-// -----------------------------------------------------------------
-// ΣΕΛΙΔΑ: jar-view.html
-// -----------------------------------------------------------------
+// --- ΣΕΛΙΔΑ: jar-view.html ---
 const jarList = document.getElementById('jarList');
 
 function displayIdeas() {
@@ -50,7 +44,6 @@ function displayIdeas() {
     }
 }
 
-// Global function για να μπορεί να κληθεί από το HTML (onclick)
 window.deleteIdea = function(index) {
     if (confirm("Θέλεις σίγουρα να διαγράψεις αυτή την ιδέα;")) {
         savedIdeas.splice(index, 1);
@@ -59,12 +52,9 @@ window.deleteIdea = function(index) {
     }
 };
 
-// Εκτέλεση κατά τη φόρτωση της σελίδας
 if (jarList) displayIdeas();
 
-// -----------------------------------------------------------------
-// ΣΕΛΙΔΑ: random-draw.html
-// -----------------------------------------------------------------
+// --- ΣΕΛΙΔΑ: random-draw.html ---
 let currentIdeaIndex = -1;
 let availableIdeas = [...savedIdeas]; 
 
@@ -82,26 +72,23 @@ window.drawIdea = function() {
     const actionBtn = document.getElementById('actionButtons');
     const resultBtns = document.getElementById('resultButtons');
 
-    // 1. Ξεκινάει το κούνημα
     jar.classList.add('shaking');
-    actionBtn.style.display = 'none'; // Κρύβουμε το κουμπί κλήρωσης
+    actionBtn.style.display = 'none'; 
     
     setTimeout(() => {
-        // 2. Σταματάει το κούνημα, πετάγεται το καπάκι
         jar.classList.remove('shaking');
         lid.classList.add('lid-off');
 
-        // 3. Επιλογή τυχαίας ιδέας
         const randomIndex = Math.floor(Math.random() * availableIdeas.length);
         const choice = availableIdeas[randomIndex];
         currentIdeaIndex = savedIdeas.indexOf(choice);
         
         ideaText.innerText = choice;
 
-        // 4. Εμφάνιση συννεφάκι
         setTimeout(() => {
             cloud.classList.add('cloud-active');
             resultBtns.style.display = 'flex';
+            resultBtns.style.flexDirection = 'column'; // Εξασφάλιση κάθετης διάταξης
         }, 300);
 
     }, 1200);
