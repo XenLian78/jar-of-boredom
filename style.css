@@ -26,7 +26,7 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* --- 2. ΤΟ ΠΛΑΙΣΙΟ --- */
+/* --- 2. ΤΟ ΠΛΑΙΣΙΟ (RESPONSIVE) --- */
 .app-container {
     background-color: var(--bg-main);
     width: 100%;
@@ -48,7 +48,7 @@ body {
     }
 }
 
-/* --- 3. ΤΥΠΟΓΡΑΦΙΑ --- */
+/* --- 3. ΤΥΠΟΓΡΑΦΙΑ & HEADER --- */
 header {
     text-align: center;
     margin-top: 40px;
@@ -82,7 +82,7 @@ header {
     overflow-y: auto;
 }
 
-/* --- 5. GRID ΚΑΤΗΓΟΡΙΩΝ --- */
+/* --- 5. GRID ΚΑΤΗΓΟΡΙΩΝ (INDEX) --- */
 .categories-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -103,6 +103,7 @@ header {
     width: 65px; 
     height: auto;
     margin-bottom: 8px;
+    transition: transform 0.2s; 
 }
 
 .cat p {
@@ -110,6 +111,8 @@ header {
     color: var(--dark-text);
     font-weight: 600;
 }
+
+.cat:hover img { transform: scale(1.1); }
 
 /* --- 6. ΚΟΥΜΠΙΑ --- */
 .start-btn {
@@ -120,23 +123,31 @@ header {
     padding: 18px;
     font-size: 16px;
     font-weight: 700;
-    border-radius: 20px;
+    border-radius: 15px;
     cursor: pointer;
+    transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 12px; /* Κενό μεταξύ των κουμπιών */
+    margin-bottom: 10px;
 }
 
 .btn-orange {
     background-color: var(--brand-orange) !important;
     color: var(--white-card) !important;
+    box-shadow: 0 8px 15px rgba(255, 148, 26, 0.3);
 }
 
-/* --- 7. ΠΛΟΗΓΗΣΗ --- */
+.start-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(0.95);
+}
+
+/* --- 7. ΠΛΟΗΓΗΣΗ (TOP NAV) --- */
 .top-nav {
     width: 100%;
     padding: 20px 10px;
     display: flex;
+    justify-content: space-between;
 }
 
 .top-nav a {
@@ -146,7 +157,7 @@ header {
     font-size: 16px;
 }
 
-/* --- 8. ΛΙΣΤΑ ΙΔΕΩΝ --- */
+/* --- 8. ΦΟΡΜΑ & ΛΙΣΤΑ ΙΔΕΩΝ --- */
 .idea-input {
     width: 100%;
     padding: 16px;
@@ -154,12 +165,14 @@ header {
     border-radius: 15px;
     margin-bottom: 20px;
     font-size: 16px;
+    outline: none;
 }
 
 .idea-list-container {
     width: 100%;
-    margin-top: 15px;
     flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 15px;
 }
 
 .idea-item {
@@ -169,12 +182,14 @@ header {
     margin-bottom: 10px;
     padding: 12px 15px;
     border-radius: 15px;
+    border: 1px solid #E0E4EC;
 }
 
 .idea-item input[type="checkbox"] {
     width: 20px;
     height: 20px;
     margin-right: 15px;
+    accent-color: var(--success-green);
 }
 
 .idea-text {
@@ -190,31 +205,33 @@ header {
     font-size: 22px;
 }
 
-/* --- 9. ΚΛΗΡΩΣΗ (ΔΙΟΡΘΩΜΕΝΟ) --- */
+/* --- 9. ΚΛΗΡΩΣΗ (ΧΩΡΙΣ ΚΑΠΑΚΙ - ΔΙΟΡΘΩΜΕΝΟ) --- */
 .draw-area {
     position: relative;
     width: 100%;
-    height: 320px;
+    height: 280px; /* Μειώθηκε ελαφρώς καθώς δεν έχουμε καπάκι */
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    margin-top: 80px; /* Προσθήκη χώρου για να χωράει το συννεφάκι μέσα στην κάρτα */
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    margin-top: 60px; /* Επαρκής χώρος πάνω για το συννεφάκι */
 }
 
 .jar-wrapper { position: relative; width: 180px; }
 
-#jarLid {
-    position: absolute;
-    top: -40px; left: 0; width: 100%; z-index: 2;
-    transition: all 0.3s;
-}
+/* Το #jarLid αφαιρέθηκε από το CSS */
 
-#jarBody { width: 100%; display: block; position: relative; z-index: 1; }
+#jarBody {
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
 
 #cloudContainer {
     position: absolute;
-    top: -110px; /* Θέση συννεφάκου πάνω από το βάζο */
+    /* Κατεβάζουμε το σύννεφο (-60px αντί για -100px) καθώς δεν υπάρχει καπάκι */
+    top: -65px; 
     width: 100%;
     display: none; 
     justify-content: center;
@@ -222,7 +239,11 @@ header {
     z-index: 3;
 }
 
-#cloudImg { width: 100%; max-width: 280px; position: absolute; }
+#cloudImg {
+    width: 100%;
+    max-width: 280px;
+    position: absolute;
+}
 
 #selectedIdea {
     position: relative;
@@ -232,29 +253,27 @@ header {
     color: var(--dark-text);
     font-size: 18px;
     text-align: center;
-    max-width: 75%;
-    line-height: 1.2;
+    max-width: 70%;
 }
 
-/* Animations */
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
     20% { transform: translate(-3px, 0px) rotate(-1deg); }
     40% { transform: translate(3px, 2px) rotate(1deg); }
     100% { transform: translate(1px, -2px) rotate(0deg); }
 }
-.shaking { animation: shake 0.5s infinite; }
-
-@keyframes lidPop {
-    0% { transform: translateY(0) rotate(0); opacity: 1; }
-    100% { transform: translateY(-120px) rotate(25deg); opacity: 0; }
-}
-.lid-off { animation: lidPop 0.6s forwards; }
 
 @keyframes cloudShow {
     0% { transform: scale(0); opacity: 0; }
     100% { transform: scale(1); opacity: 1; }
 }
+
+.shaking { animation: shake 0.5s infinite; }
+/* .lid-off αφαιρέθηκε */
 .cloud-active { animation: cloudShow 0.5s forwards; display: flex !important; }
 
-footer { text-align: center; padding: 15px; margin-top: auto; }
+footer {
+    text-align: center;
+    padding: 15px;
+    margin-top: auto;
+}
