@@ -29,87 +29,97 @@ body {
     display: flex;
     flex-direction: column;
     padding: 0 20px 20px 20px;
+    position: relative;
 }
 
 @media (min-width: 451px) { .app-container { border-radius: 45px; height: 95vh; } }
 
+/* --- ΚΑΡΤΑ ΠΕΡΙΕΧΟΜΕΝΟΥ --- */
 .main-card {
     background: var(--white-card);
     border-radius: 30px;
     flex-grow: 1;
-    padding: 25px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: auto;
+    overflow: hidden; /* Αφαιρεί το scrollbar */
+    position: relative;
 }
 
-.top-nav { width: 100%; padding: 20px 10px; display: flex; }
-.top-nav a { text-decoration: none; color: var(--dark-text); font-weight: bold; }
+/* --- ΑΡΧΙΚΗ ΣΕΛΙΔΑ (GRID) --- */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 15px;
+}
 
+.cat { text-align: center; }
+.cat img { 
+    width: 60px; /* Σταθερό μέγεθος για να μη χαλάει */
+    height: auto; 
+    margin-bottom: 5px;
+}
+.cat p { font-size: 11px; font-weight: 600; color: var(--dark-text); }
+
+/* --- ΚΟΥΜΠΙΑ --- */
 .start-btn {
     background-color: var(--btn-gray);
     color: var(--dark-text);
     border: none;
     width: 100%;
-    padding: 18px;
+    padding: 16px;
     font-size: 16px;
     font-weight: 700;
-    border-radius: 20px;
+    border-radius: 18px;
     cursor: pointer;
     text-transform: uppercase;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
+    transition: 0.2s;
 }
 
 .btn-orange { background-color: var(--brand-orange) !important; color: white !important; }
 
-/* Σελίδα Λίστας */
-.idea-item {
-    display: flex;
-    align-items: center;
-    background: #f8f9fa;
-    margin-bottom: 10px;
-    padding: 12px;
-    border-radius: 15px;
-    width: 100%;
-}
-.idea-text { flex-grow: 1; margin-left: 10px; color: var(--dark-text); }
-.delete-btn { color: var(--danger-red); cursor: pointer; font-size: 20px; font-weight: bold; }
+/* --- ΠΛΟΗΓΗΣΗ --- */
+.top-nav { width: 100%; padding: 15px 10px; display: flex; }
+.top-nav a { text-decoration: none; color: var(--dark-text); font-weight: bold; font-size: 14px; }
 
-/* Περιοχή Κλήρωσης - Χαμηλωμένη */
+/* --- ΣΕΛΙΔΑ ΚΛΗΡΩΣΗΣ (ΧΑΜΗΛΑ) --- */
 .draw-area {
     position: relative;
     width: 100%;
-    height: 280px;
+    height: 240px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    margin-top: 120px; /* Κατεβαίνει κι άλλο */
-    margin-bottom: 40px;
+    margin-top: 100px; /* Κατεβάζει το βάζο */
+    margin-bottom: 30px;
 }
 
 #cloudContainer {
     position: absolute;
-    top: -75px; 
+    top: -70px;
     width: 100%;
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 3;
+    z-index: 5;
 }
 
-#cloudImg { width: 100%; max-width: 280px; position: absolute; }
-#selectedIdea { position: relative; z-index: 4; padding: 20px; font-weight: bold; text-align: center; color: var(--dark-text); }
+#cloudImg { width: 260px; position: absolute; }
+#selectedIdea { position: relative; z-index: 6; padding: 15px; font-weight: bold; text-align: center; color: var(--dark-text); font-size: 17px; }
 
-.jar-wrapper { width: 180px; position: relative; }
-#jarBody { width: 100%; }
+.jar-wrapper { width: 160px; position: relative; }
+#jarBody { width: 100%; display: block; }
 
-@keyframes shake {
-    0% { transform: rotate(0deg); }
-    25% { transform: rotate(-2deg); }
-    75% { transform: rotate(2deg); }
-    100% { transform: rotate(0deg); }
-}
+/* --- ANIMATIONS --- */
 .shaking { animation: shake 0.2s infinite; }
-.cloud-active { display: flex !important; animation: fadeIn 0.5s; }
-@keyframes fadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+@keyframes shake { 0% {transform:rotate(0)} 25% {transform:rotate(-2deg)} 75% {transform:rotate(2deg)} 100% {transform:rotate(0)} }
+.cloud-active { display: flex !important; animation: pop 0.4s ease-out; }
+@keyframes pop { from {opacity:0; transform:scale(0.5)} to {opacity:1; transform:scale(1)} }
+
+/* --- FOOTER --- */
+footer { text-align: center; padding: 10px; }
+.logo-bottom { width: 70px; }
