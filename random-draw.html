@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="el">
 <head>
@@ -29,7 +31,7 @@
                 <button class="start-btn btn-orange" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΓΙΑ ΜΕΝΑ</button>
             </div>
             
-            <div id="resultButtons" style="width: 100%; display: none; gap: 15px;">
+            <div id="resultButtons" style="width: 100%; display: none; flex-direction: column;">
                 <button class="start-btn" onclick="doneIdea()" style="background-color: var(--success-green); color: white;">ΤΟ ΕΚΑΝΑ!</button>
                 <button class="start-btn" onclick="location.reload()">ΑΛΛΟ ΕΝΑ...</button>
             </div>
@@ -39,7 +41,6 @@
             <img src="assets/images/logo-bored-jar.svg" style="width: 80px;" alt="Bored Jar Logo">
         </footer>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
