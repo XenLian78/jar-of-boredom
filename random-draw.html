@@ -5,28 +5,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bored Jar - Κλήρωση</title>
+    <title>Bored Jar - Κλήρωση!</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-container">
-        <div class="top-nav"><a href="jar-view.html">< Πίσω</a></div>
+        <div class="top-nav">
+            <a href="jar-view.html">&lt; Πίσω</a>
+        </div>
+
         <div class="main-card">
             <div class="draw-area">
                 <div id="cloudContainer">
-                    <img src="assets/images/cloud-bubble.png" id="cloudImg">
-                    <div id="selectedIdea"></div>
+                    <img src="assets/images/cloud-bubble.png" id="cloudImg" alt="Cloud">
+                    <div id="selectedIdea">Εδώ θα μπει η ιδέα!</div>
                 </div>
-                <div class="jar-wrapper" id="fullJar"><img src="assets/images/jar-body.png" id="jarBody"></div>
+
+                <div class="jar-wrapper" id="fullJar">
+                    <img src="assets/images/jar-body.png" id="jarBody" alt="Jar">
+                </div>
             </div>
+
             <div id="actionButtons" style="width: 100%;">
                 <button class="start-btn btn-orange" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΓΙΑ ΜΕΝΑ</button>
             </div>
+            
             <div id="resultButtons" style="width: 100%; display: none; flex-direction: column;">
                 <button class="start-btn" onclick="doneIdea()" style="background-color: var(--success-green); color: white;">ΤΟ ΕΚΑΝΑ!</button>
-                <button class="start-btn" onclick="drawAgain()">ΔΙΑΛΕΞΕ ΞΑΝΑ</button>
+                <button class="start-btn" onclick="location.reload()">ΑΛΛΟ ΕΝΑ...</button>
             </div>
         </div>
+
+        <footer>
+            <img src="assets/images/logo-bored-jar.svg" style="width: 80px;" alt="Bored Jar Logo">
+        </footer>
     </div>
     <script src="script.js"></script>
 </body>
