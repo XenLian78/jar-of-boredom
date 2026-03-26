@@ -1,40 +1,49 @@
-
-// Αρχικοποίηση λίστας ιδεών από το LocalStorage
 let savedIdeas = JSON.parse(localStorage.getItem('myIdeas')) || [];
 
-// -----------------------------------------------------------------
-// ΣΕΛΙΔΑ: add-idea.html
-// -----------------------------------------------------------------
+// --- HELPER: CUSTOM NOTIFICATION (Αντί για Alert) ---
+function showNotify(text) {
+    const msg = document.createElement('div');
+    msg.style = `
+        position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+        background: var(--dark-text); color: white; padding: 12px 25px;
+        border-radius: 30px; z-index: 1000; font-size: 14px; box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        animation: popIn 0.3s forwards;
+    `;
+    msg.innerText = text;
+    document.body.appendChild(msg);
+    setTimeout(() => { msg.remove(); }, 2500);
+}
+
+// --- ΣΕΛΙΔΑ: add-idea.html ---
 const addBtn = document.getElementById('addBtn');
 const ideaInput = document.getElementById('ideaInput');
 
 if (addBtn && ideaInput) {
     addBtn.addEventListener('click', () => {
         const newIdea = ideaInput.value.trim();
-        
         if (newIdea !== "") {
             savedIdeas.push(newIdea);
             localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
-            
-            alert("Η ιδέα '" + newIdea + "' μπήκε στο βάζο!");
+            showNotify(`Η ιδέα "${newIdea}" προστέθηκε!`);
             ideaInput.value = "";
         } else {
-            alert("Γράψε κάτι πρώτα!");
+            showNotify("Γράψε κάτι πρώτα!");
         }
     });
 }
 
-// -----------------------------------------------------------------
-// ΣΕΛΙΔΑ: jar-view.html
-// -----------------------------------------------------------------
+// --- ΣΕΛΙΔΑ: jar-view.html ---
 const jarList = document.getElementById('jarList');
-
 function displayIdeas() {
     if (!jarList) return;
     jarList.innerHTML = ""; 
 
     if (savedIdeas.length === 0) {
-        jarList.innerHTML = "<p style='text-align:center; color:#999; margin-top:20px; font-size: 16px;'>Το βάζο είναι άδειο!</p>";
+        jarList.innerHTML = `
+            <div class="empty-msg">
+                <p>Το βάζο σου είναι άδειο!</p>
+                <p style="font-size:14px">Πρόσθεσε μερικές ιδέες για να ξεκινήσεις.</p>
+            </div>`;
     } else {
         savedIdeas.forEach((idea, index) => {
             const item = document.createElement('div');
@@ -49,68 +58,56 @@ function displayIdeas() {
     }
 }
 
-// Global function για να μπορεί να κληθεί από το HTML (onclick)
 window.deleteIdea = function(index) {
-    if (confirm("Θέλεις σίγουρα να διαγράψεις αυτή την ιδέα;")) {
-        savedIdeas.splice(index, 1);
-        localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
-        displayIdeas();
-    }
+    savedIdeas.splice(index, 1);
+    localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
+    displayIdeas();
+    showNotify("Η ιδέα διαγράφηκε.");
 };
 
-// Εκτέλεση κατά τη φόρτωση της σελίδας
 if (jarList) displayIdeas();
 
-// -----------------------------------------------------------------
-// ΣΕΛΙΔΑ: random-draw.html
-// -----------------------------------------------------------------
+// --- ΣΕΛΙΔΑ: random-draw.html ---
 let currentIdeaIndex = -1;
-let availableIdeas = [...savedIdeas]; 
-
 window.drawIdea = function() {
-    if (availableIdeas.length === 0) {
-        alert("Το βάζο είναι άδειο! Πρόσθεσε πρώτα μερικές ιδέες.");
-        window.location.href = 'add-idea.html';
+    if (savedIdeas.length === 0) {
+        showNotify("Πρόσθεσε πρώτα ιδέες!");
+        setTimeout(() => { window.location.href = 'add-idea.html'; }, 1000);
         return;
     }
 
-    const jar = document.getElementById('fullJar');
+    const jar = document.querySelector('.jar-wrapper');
     const lid = document.getElementById('jarLid');
     const cloud = document.getElementById('cloudContainer');
     const ideaText = document.getElementById('selectedIdea');
     const actionBtn = document.getElementById('actionButtons');
     const resultBtns = document.getElementById('resultButtons');
 
-    // 1. Ξεκινάει το κούνημα
-    jar.classList.add('shaking');
-    actionBtn.style.display = 'none'; // Κρύβουμε το κουμπί κλήρωσης
+    // Start Sequence
+    jar.classList.add('animate-shake');
+    actionBtn.style.opacity = '0';
     
     setTimeout(() => {
-        // 2. Σταματάει το κούνημα, πετάγεται το καπάκι
-        jar.classList.remove('shaking');
-        lid.classList.add('lid-off');
+        jar.classList.remove('animate-shake');
+        lid.classList.add('animate-lid');
 
-        // 3. Επιλογή τυχαίας ιδέας
-        const randomIndex = Math.floor(Math.random() * availableIdeas.length);
-        const choice = availableIdeas[randomIndex];
-        currentIdeaIndex = savedIdeas.indexOf(choice);
-        
+        const randomIndex = Math.floor(Math.random() * savedIdeas.length);
+        const choice = savedIdeas[randomIndex];
+        currentIdeaIndex = randomIndex;
         ideaText.innerText = choice;
 
-        // 4. Εμφάνιση συννεφάκι
         setTimeout(() => {
-            cloud.classList.add('cloud-active');
+            cloud.classList.add('animate-pop');
+            actionBtn.style.display = 'none';
             resultBtns.style.display = 'flex';
-        }, 300);
-
-    }, 1200);
+        }, 400);
+    }, 1000);
 };
 
 window.doneIdea = function() {
     if (currentIdeaIndex > -1) {
         savedIdeas.splice(currentIdeaIndex, 1);
         localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
-        alert("Μπράβο! Η ιδέα ολοκληρώθηκε και αφαιρέθηκε από το βάζο.");
         window.location.href = 'jar-view.html';
     }
 };
