@@ -248,13 +248,12 @@ header {
     display: block;
     position: relative;
     z-index: 1;
-    object-fit: contain;
 }
 
 /* ΔΙΟΡΘΩΣΗ 3: Αναλογικό Σύννεφο SVG */
 #cloudContainer {
     position: absolute;
-    top: -150px;
+    bottom: -150px;
     width: 95%; 
     aspect-ratio: 1.4 / 1; /* Κλειδώνει την αναλογία του SVG */
     display: none; 
