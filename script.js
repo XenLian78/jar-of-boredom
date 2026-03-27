@@ -130,4 +130,3 @@ window.doneIdea = function() {
         window.location.href = 'jar-view.html';
     }
 };
-
