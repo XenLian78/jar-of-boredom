@@ -248,7 +248,6 @@ header {
     height: 110%;
     display: block;
     position: absolute;
-    bottom: -100;
     z-index: 1;
 }
 
