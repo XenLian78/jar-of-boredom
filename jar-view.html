@@ -5,50 +5,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bored Jar - Το Βάζο σου</title>
+    <title>The jar of Boredom - Το Βάζο μου</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-container">
         <div class="top-nav">
-            <a href="index.html"> < Πίσω</a>
+            <a href="add-idea.html">&lt; Πίσω</a>
         </div>
 
         <div class="main-card">
-            <header>
-                <h1 class="main-title">ΤΟ ΒΑΖΟ ΣΟΥ</h1>
-                <p style="color: #718096; font-size: 14px;">Διαχείριση ιδεών</p>
-            </header>
+            <h2 style="color: var(--dark-text); font-size: 24px; margin-bottom: 5px;">ΤΟ ΒΑΖΟ ΣΟΥ</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 15px;">Διαχείριση ιδεών</p>
 
-            <div id="ideaList" class="idea-list-container">
-                </div>
+            <div id="jarList" class="idea-list-container"></div>
 
-            <button class="start-btn" id="drawBtn">ΕΝΑΡΞΗ ΠΑΙΧΝΙΔΙΟΥ</button>
-
-            <div class="draw-area" id="drawArea" style="display:none;">
-                <div id="cloudContainer">
-                    <img src="cloud-bubble.svg" id="cloudImg" alt="Cloud">
-                    <div id="selectedIdea"></div>
-                </div>
-                
-                <div class="jar-wrapper">
-                    <img src="jar-empty.png" id="jarBody" alt="Jar">
-                </div>
-
-                <div style="width: 100%; display: flex; gap: 10px; margin-top: 20px;">
-                    <button class="start-btn btn-success" id="doneBtn" style="background-color: #28a745; color: white;">ΤΟ ΕΚΑΝΑ!</button>
-                    <button class="start-btn" id="nextBtn">ΑΛΛΟ ΕΝΑ...</button>
-                </div>
-            </div>
+            <button class="start-btn btn-orange" onclick="window.location.href='random-draw.html'">ΕΝΑΡΞΗ ΠΑΙΧΝΙΔΙΟΥ</button>
         </div>
 
         <footer>
-            <img src="logo-footer.png" alt="Bored Jar Logo" style="width: 80px;">
+            <img src="assets/images/logo-bored-jar.svg" style="width: 80px;" alt="Bored Jar Logo">
         </footer>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>
-
-                
