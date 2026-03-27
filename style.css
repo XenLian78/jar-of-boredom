@@ -246,7 +246,8 @@ header {
 #jarBody {
     width: 100%;
     display: block;
-    position: relative;
+    position: absolute;
+    bottom: -150;
     z-index: 1;
 }
 
