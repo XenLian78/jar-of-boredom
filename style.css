@@ -222,7 +222,7 @@ header {
 
 
 #jarBody {
-    width: 150%;
+    width: 100%;
     display: block;
     position: relative;
     z-index: 1;
