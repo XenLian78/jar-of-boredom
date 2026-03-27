@@ -274,10 +274,10 @@ header {
 }
 
 #selectedIdea {
-    position: relative; 
-    bottom: -200;
+    position: absolute;
+    bottom: -150;
     z-index: 4;
-    width: 85%; /* ΔΙΟΡΘΩΣΗ 3: Text Wrapping μέσα στο σύννεφο */
+    width: 65%; /* ΔΙΟΡΘΩΣΗ 3: Text Wrapping μέσα στο σύννεφο */
     font-weight: bold;
     color: var(--dark-text);
     font-size: 16px;
