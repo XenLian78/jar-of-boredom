@@ -253,7 +253,7 @@ header {
 /* ΔΙΟΡΘΩΣΗ 3: Αναλογικό Σύννεφο SVG */
 #cloudContainer {
     position: absolute;
-    top: -120px;
+    top: -200px;
     width: 95%; 
     aspect-ratio: 1.4 / 1; /* Κλειδώνει την αναλογία του SVG */
     display: none; 
