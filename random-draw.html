@@ -5,35 +5,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The jar of Boredom - Κλήρωση!</title>
+    <title>The jar of Boredom - Αρχική</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="app-container">
-        <div class="top-nav">
-            <a href="jar-view.html">&lt; Πίσω</a>
-        </div>
+        <header>
+            <h1 class="main-title">
+                <span>Το Βάζο της</span><br>
+                <span>Αντι-βαρεμάρας</span>
+            </h1>
+        </header>
 
         <div class="main-card">
-            <div class="draw-area">
-                <div id="cloudContainer">
-                    <img src="assets/images/cloud-bubble.png" id="cloudImg" alt="Cloud">
-                    <div id="selectedIdea">Εδώ θα μπει η ιδέα!</div>
-                </div>
-
-                <div class="jar-wrapper" id="fullJar">
-                    <img src="assets/images/jar-body.svg" id="jarBody" alt="Jar">
-                </div>
+            <div class="categories-grid">
+                <div class="cat"><img src="assets/images/explore-icon.png" alt="Explore"><p>Εξερεύνησε</p></div>
+                <div class="cat"><img src="assets/images/create-icon.png" alt="Create"><p>Δημιούργησε</p></div>
+                <div class="cat"><img src="assets/images/learn-icon.png" alt="Learn"><p>Μάθε</p></div>
+                <div class="cat"><img src="assets/images/help-icon.png" alt="Help"><p>Βοήθα</p></div>
+                <div class="cat"><img src="assets/images/play-icon.png" alt="Play"><p>Παίξε</p></div>
+                <div class="cat"><img src="assets/images/relax-icon.png" alt="Relax"><p>Χαλάρωσε</p></div>
             </div>
 
-            <div id="actionButtons" style="width: 100%;">
-                <button class="start-btn btn-orange" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΓΙΑ ΜΕΝΑ</button>
+            <div style="margin-top: 5px; width: 100%; text-align: center; margin-bottom: 15px; flex-grow: 1; display: flex; align-items: center; justify-content: center;">
+                <img src="assets/images/main_characters.png" style="max-width: 250px; width: 85%; max-height: 25vh; object-fit: contain;" alt="Characters">
             </div>
-            
-            <div id="resultButtons" style="width: 100%; display: none; flex-direction: column;">
-                <button class="start-btn" onclick="doneIdea()" style="background-color: var(--success-green); color: white;">ΤΟ ΕΚΑΝΑ!</button>
-                <button class="start-btn" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΞΑΝΑ</button>
-            </div>
+
+            <button class="start-btn btn-orange" onclick="window.location.href='add-idea.html'">ΞΕΚΙΝΑΜΕ</button>
         </div>
 
         <footer>
