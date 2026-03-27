@@ -1,5 +1,3 @@
-
-
 /* --- 1. DESIGN SYSTEM & ΜΕΤΑΒΛΗΤΕΣ --- */
 :root {
     --bg-main: #AAB2C5;
@@ -53,7 +51,7 @@ body {
 header {
     text-align: center;
     margin-top: 25px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 .main-title {
@@ -70,7 +68,7 @@ header {
     padding-bottom: 2px;
 }
 
-/* --- 4. ΒΑΣΙΚΗ ΚΑΡΤΑ - ΛΕΥΚΟ ΠΛΑΙΣΙΟ --- */
+/* --- 4. ΒΑΣΙΚΗ ΚΑΡΤΑ --- */
 .main-card {
     background: var(--white-card);
     border-radius: 30px;
@@ -80,11 +78,12 @@ header {
     flex-direction: column;
     align-items: center;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    overflow: hidden; /* ΔΙΟΡΘΩΣΗ 1: Εξαφανίζει τη μπάρα από την κάρτα (add-idea.html) */
+    /* ΔΙΟΡΘΩΣΗ: overflow visible για να μην κόβεται το σύννεφο */
+    overflow: visible; 
     position: relative;
 }
 
-/* --- 5. GRID ΚΑΤΗΓΟΡΙΩΝ (INDEX) --- */
+/* --- 5. GRID ΚΑΤΗΓΟΡΙΩΝ --- */
 .categories-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -144,12 +143,12 @@ header {
     filter: brightness(0.95);
 }
 
-/* --- 7. ΠΛΟΗΓΗΣΗ (TOP NAV) --- */
+/* --- 7. ΠΛΟΗΓΗΣΗ --- */
 .top-nav {
     width: 100%;
     padding: 15px 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .top-nav a {
@@ -159,7 +158,7 @@ header {
     font-size: 16px;
 }
 
-/* --- 8. ΦΟΡΜΑ & ΛΙΣΤΑ ΙΔΕΩΝ --- */
+/* --- 8. ΦΟΡΜΑ & ΛΙΣΤΑ --- */
 .idea-input {
     width: 100%;
     padding: 16px;
@@ -173,74 +172,27 @@ header {
 .idea-list-container {
     width: 100%;
     flex-grow: 1;
-    overflow-y: auto; /* ΔΙΟΡΘΩΣΗ 1: Η μπάρα παραμένει ΜΟΝΟ εδώ */
+    overflow-y: auto;
     margin-bottom: 15px;
     padding-right: 5px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--btn-gray) transparent;
 }
 
-.idea-list-container::-webkit-scrollbar {
-    width: 8px;
-}
-.idea-list-container::-webkit-scrollbar-track {
-    background: transparent;
-}
-.idea-list-container::-webkit-scrollbar-thumb {
-    background-color: var(--btn-gray);
-    border-radius: 10px;
-}
-
-.idea-item {
-    display: flex;
-    align-items: center;
-    background: #f8f9fa;
-    margin-bottom: 10px;
-    padding: 12px 15px;
-    border-radius: 15px;
-    border: 1px solid #E0E4EC;
-}
-
-.idea-item input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    margin-right: 15px;
-    accent-color: var(--success-green);
-    flex-shrink: 0;
-}
-
-.idea-text {
-    font-size: 16px;
-    color: var(--dark-text);
-    flex-grow: 1;
-    word-break: break-word;
-}
-
-.delete-btn {
-    color: var(--danger-red);
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 24px;
-    margin-left: 10px;
-    flex-shrink: 0;
-}
-
-/* --- 9. ΚΛΗΡΩΣΗ & ΣΥΝΝΕΦΟ --- */
+/* --- 9. ΚΛΗΡΩΣΗ & ΣΥΝΝΕΦΟ (ΤΕΛΙΚΗ ΔΙΟΡΘΩΣΗ) --- */
 .draw-area {
     position: relative;
     width: 100%;
-    height: 360px;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
-    margin-top: 60px;
-    margin-bottom: 20px;
 }
 
 .jar-wrapper { 
     position: relative; 
-    width: 230px; 
+    width: 210px; /* Ελαφρώς μικρότερο για καλύτερη αναλογία */
+    /* ΔΙΟΡΘΩΣΗ: Αυξάνουμε το margin-top για να κατέβει το βάζο και να χωρέσει το σύννεφο πάνω */
+    margin-top: 110px; 
 }
 
 #jarBody {
@@ -250,16 +202,20 @@ header {
     z-index: 1;
 }
 
-/* ΔΙΟΡΘΩΣΗ 3: Αναλογικό Σύννεφο SVG */
 #cloudContainer {
     position: absolute;
-    top: -120px;
-    width: 90%; 
-    aspect-ratio: 1.4 / 1; /* Κλειδώνει την αναλογία του SVG */
+    /* ΔΙΟΡΘΩΣΗ: Μειώνουμε το top για να "κάθεται" το σύννεφο κοντά στο καπάκι */
+    top: -95px; 
+    width: 105%; /* Λίγο μεγαλύτερο για να μη φαίνεται μικρό δίπλα στο βάζο */
+    aspect-ratio: 1.4 / 1; 
     display: none; 
     justify-content: center;
     align-items: center;
     z-index: 3;
+    /* Padding για να σπρώξουμε το κείμενο στην κοιλιά του σύννεφου */
+    padding-bottom: 40px; 
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 #cloudImg {
@@ -268,21 +224,25 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Το SVG γεμίζει το container αναλογικά */
+    object-fit: contain;
     z-index: -1;
 }
 
 #selectedIdea {
     position: relative;
     z-index: 4;
-    width: 70%; /* ΔΙΟΡΘΩΣΗ 3: Text Wrapping μέσα στο σύννεφο */
+    /* ΔΙΟΡΘΩΣΗ: Στενεύουμε το πλάτος του κειμένου για αυστηρό wrapping */
+    width: 70%; 
     font-weight: bold;
     color: var(--dark-text);
-    font-size: 18px;
+    font-size: 17px; /* Ελαφρώς μικρότερο για να χωράνε μεγάλες προτάσεις */
     text-align: center;
-    word-wrap: break-word; /* Σπάει τις λέξεις για να μη βγαίνουν έξω */
+    line-height: 1.2;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
+/* Animations */
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
     20% { transform: translate(-3px, 0px) rotate(-1deg); }
