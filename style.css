@@ -246,14 +246,16 @@ header {
 #jarBody {
     width: 100%;
     display: block;
-    position: relative;
+    position: absolute;
+    top: -120;
+    bottom: -100px;
     z-index: 1;
 }
 
 /* ΔΙΟΡΘΩΣΗ 3: Αναλογικό Σύννεφο SVG */
 #cloudContainer {
     position: absolute;
-    top: -200px;
+    top: -120px;
     bottom: -100px;
     width: 95%; 
     aspect-ratio: 1.4 / 1; /* Κλειδώνει την αναλογία του SVG */
@@ -281,7 +283,7 @@ header {
     font-weight: bold;
     color: var(--dark-text);
     font-size: 19px;
-    text-align: wrap;
+    text-align: center; wrap;
     word-wrap: break-word; /* Σπάει τις λέξεις για να μη βγαίνουν έξω */
     overflow-wrap: break-word;
 }
