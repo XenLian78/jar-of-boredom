@@ -1,15 +1,21 @@
 
 
-/* --- 1. DESIGN SYSTEM --- */
+/* --- 1. DESIGN SYSTEM & ΜΕΤΑΒΛΗΤΕΣ --- */
 :root {
     --bg-main: #AAB2C5;
     --white-card: #FFFFFF;
     --dark-text: #1D2D50;
     --brand-orange: #FF941A;
     --btn-gray: #E0E4EC;
+    --success-green: #28a745;
+    --danger-red: #ff4d4d;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
 body {
     background-color: #2c2c2c;
@@ -17,26 +23,54 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    font-family: 'Segoe UI', sans-serif;
-    overflow: hidden; /* Κλειδώνει το εξωτερικό scroll */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* --- 2. CONTAINERS --- */
+/* --- 2. ΤΟ ΠΛΑΙΣΙΟ (RESPONSIVE) --- */
 .app-container {
     background-color: var(--bg-main);
     width: 100%;
     max-width: 450px;
     height: 100vh;
     max-height: 900px;
+    position: relative;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 0 15px 15px 15px; /* Μικρότερα padding για να κερδίσουμε χώρο */
+    box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+    overflow: hidden;
 }
 
 @media (min-width: 451px) {
-    .app-container { border-radius: 45px; height: 95vh; }
+    .app-container {
+        border-radius: 45px;
+        height: 95vh;
+        padding: 0 20px 20px 20px;
+    }
 }
 
+/* --- 3. ΤΥΠΟΓΡΑΦΙΑ & HEADER --- */
+header {
+    text-align: center;
+    margin-top: 25px; /* Μειώθηκε για να μην θέλει scroll η αρχική */
+    margin-bottom: 15px;
+}
+
+.main-title {
+    color: var(--dark-text);
+    font-size: 26px; /* Ελαφρώς μικρότερο */
+    font-family: 'Georgia', serif;
+    font-weight: normal;
+    line-height: 1.3;
+}
+
+.main-title span {
+    display: inline-block;
+    border-bottom: 1px solid var(--dark-text);
+    padding-bottom: 2px;
+}
+
+/* --- 4. ΒΑΣΙΚΗ ΚΑΡΤΑ --- */
 .main-card {
     background: var(--white-card);
     border-radius: 30px;
@@ -46,103 +80,228 @@ body {
     flex-direction: column;
     align-items: center;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    overflow: hidden; /* Απαγορεύει το scrollbar στην κάρτα */
-    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
-/* --- 3. SCROLLBAR ΜΟΝΟ ΓΙΑ ΤΗ ΛΙΣΤΑ --- */
-.idea-list-container {
+/* --- 5. GRID ΚΑΤΗΓΟΡΙΩΝ (INDEX) --- */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px; /* Μικρότερο κενό */
     width: 100%;
-    flex-grow: 1;
-    overflow-y: auto; /* Το scrollbar εμφανίζεται μόνο εδώ */
-    padding-right: 5px;
     margin-bottom: 15px;
 }
 
-.idea-list-container::-webkit-scrollbar { width: 6px; }
+.cat {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    justify-content: center;
+    text-align: center;
+}
+
+.cat img {
+    width: 55px; /* Ελαφρώς μικρότερες εικόνες */
+    height: auto;
+    margin-bottom: 5px;
+    transition: transform 0.2s; 
+}
+
+.cat p {
+    font-size: 11px;
+    color: var(--dark-text);
+    font-weight: 600;
+}
+
+.cat:hover img { transform: scale(1.1); }
+
+/* --- 6. ΚΟΥΜΠΙΑ --- */
+.start-btn {
+    background-color: var(--btn-gray);
+    color: var(--dark-text);
+    border: none;
+    width: 100%;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 700;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.btn-orange {
+    background-color: var(--brand-orange) !important;
+    color: var(--white-card) !important;
+    box-shadow: 0 8px 15px rgba(255, 148, 26, 0.3);
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(0.95);
+}
+
+/* --- 7. ΠΛΟΗΓΗΣΗ (TOP NAV) --- */
+.top-nav {
+    width: 100%;
+    padding: 15px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.top-nav a {
+    text-decoration: none;
+    color: var(--dark-text);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* --- 8. ΦΟΡΜΑ & ΛΙΣΤΑ ΙΔΕΩΝ --- */
+.idea-input {
+    width: 100%;
+    padding: 16px;
+    border: 2px solid #E0E4EC;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    font-size: 16px;
+    outline: none;
+}
+
+.idea-list-container {
+    width: 100%;
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: 15px;
+    padding-right: 5px;
+    /* --- Scrollbar styling --- */
+    scrollbar-width: thin;
+    scrollbar-color: var(--btn-gray) transparent;
+}
+
+.idea-list-container::-webkit-scrollbar {
+    width: 8px;
+}
+.idea-list-container::-webkit-scrollbar-track {
+    background: transparent;
+}
 .idea-list-container::-webkit-scrollbar-thumb {
-    background: var(--btn-gray);
+    background-color: var(--btn-gray);
     border-radius: 10px;
 }
 
-/* --- 4. ΣΥΝΝΕΦΟ (SVG LOGIC) --- */
-.draw-area {
-    position: absolute; /* Κάθεται πάνω από τη λίστα όταν ενεργοποιείται */
-    top: 20px;
-    left: 20px;
-    right: 20px;
-    bottom: 20px;
-    background: white;
-    z-index: 10;
+.idea-item {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
+    background: #f8f9fa;
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 15px;
+    border: 1px solid #E0E4EC;
 }
 
-#cloudContainer {
+/* Σταθερό μέγεθος στα checkboxes & κουμπιά delete */
+.idea-item input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    accent-color: var(--success-green);
+    flex-shrink: 0; /* Δεν μικραίνει */
+}
+
+.idea-text {
+    font-size: 16px;
+    color: var(--dark-text);
+    flex-grow: 1;
+    word-break: break-word; /* Κόβει μεγάλες λέξεις αντί να πιέζει τα κουμπιά */
+}
+
+.delete-btn {
+    color: var(--danger-red);
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 24px;
+    margin-left: 10px;
+    flex-shrink: 0; /* Δεν μικραίνει */
+}
+
+/* --- 9. ΚΛΗΡΩΣΗ & ΣΥΝΝΕΦΟ --- */
+.draw-area {
     position: relative;
-    width: 90%; 
-    aspect-ratio: 1.2 / 1; /* Διατηρεί την αναλογία του SVG σου */
+    width: 100%;
+    height: 360px; /* Μεγάλωσε για να χωράει το μεγαλύτερο βάζο & σύννεφο */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 60px; /* Χώρος για το σύννεφο να ανέβει ψηλά */
+    margin-bottom: 20px;
+}
+
+/* Μεγαλύτερο βάζο */
+.jar-wrapper { 
+    position: relative; 
+    width: 230px; 
+}
+
+#jarBody {
+    width: 100%;
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+/* Δυναμικό Σύννεφο */
+#cloudContainer {
+    position: absolute;
+    top: -100px; /* Το ανεβάζουμε πάνω από το βάζο */
     display: none; 
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    z-index: 3;
+    min-width: 200px;
+    max-width: 95%; /* Για να μη βγαίνει εκτός κάρτας */
 }
 
 #cloudImg {
     position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain;
-    z-index: 1;
+    z-index: -1; /* Το βάζουμε πίσω από το κείμενο */
 }
 
 #selectedIdea {
     position: relative;
-    z-index: 2;
-    width: 70%; /* Περιορίζει το κείμενο στην "κοιλιά" του σύννεφου */
-    text-align: center;
-    font-weight: 800;
+    z-index: 4;
+    padding: 40px 30px; /* Το padding δημιουργεί τον όγκο του σύννεφου */
+    font-weight: bold;
     color: var(--dark-text);
     font-size: 18px;
-    word-wrap: break-word; /* Wrap κειμένου */
-    padding-bottom: 15%; /* Σπρώχνει το κείμενο λίγο πιο πάνω από την ουρά του σύννεφου */
-}
-
-.jar-wrapper { width: 180px; margin-bottom: 20px; }
-#jarBody { width: 100%; }
-
-/* --- 5. ΚΟΥΜΠΙΑ & ANIMATIONS --- */
-.start-btn {
-    background-color: var(--brand-orange);
-    color: white;
-    border: none;
-    width: 100%;
-    padding: 16px;
-    border-radius: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 16px;
-    transition: 0.2s;
-}
-
-.start-btn:active { transform: scale(0.98); }
-
-.shaking { animation: shake 0.5s infinite; }
-.cloud-active { display: flex !important; animation: popIn 0.4s ease-out; }
-
-@keyframes popIn {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+    text-align: center;
+    max-width: 100%;
 }
 
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
-    25% { transform: translate(-2px, 0px) rotate(-1deg); }
-    75% { transform: translate(2px, 2px) rotate(1deg); }
-    100% { transform: translate(1px, -1px) rotate(0deg); }
+    20% { transform: translate(-3px, 0px) rotate(-1deg); }
+    40% { transform: translate(3px, 2px) rotate(1deg); }
+    100% { transform: translate(1px, -2px) rotate(0deg); }
 }
 
-footer { text-align: center; padding: 15px; }
+@keyframes cloudShow {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
 
+.shaking { animation: shake 0.5s infinite; }
+.cloud-active { animation: cloudShow 0.5s forwards; display: flex !important; }
+
+footer {
+    text-align: center;
+    padding: 10px;
+    margin-top: auto;
+}
