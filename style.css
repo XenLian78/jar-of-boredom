@@ -246,9 +246,7 @@ header {
 #jarBody {
     width: 100%;
     display: block;
-    position: absolute;
-    top: -120;
-    bottom: -100px;
+    position: relative;
     z-index: 1;
 }
 
@@ -256,7 +254,6 @@ header {
 #cloudContainer {
     position: absolute;
     top: -120px;
-    bottom: -100px;
     width: 95%; 
     aspect-ratio: 1.4 / 1; /* Κλειδώνει την αναλογία του SVG */
     display: none; 
