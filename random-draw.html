@@ -5,86 +5,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bored Jar - Κλήρωση</title>
+    <title>The jar of Boredom - Κλήρωση!</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="app-container">
-        
-        <header>
-            <h1 class="main-title">BORED <span>JAR</span></h1>
-        </header>
+        <div class="top-nav">
+            <a href="jar-view.html">&lt; Πίσω</a>
+        </div>
 
         <div class="main-card">
             <div class="draw-area">
-                
                 <div id="cloudContainer">
                     <img src="assets/images/cloud-bubble.svg" id="cloudImg" alt="Cloud">
-                    <p id="selectedIdea">Πάτησε το κουμπί για μια ιδέα!</p>
+                    <div id="selectedIdea">Εδώ θα μπει η ιδέα!</div>
                 </div>
 
-                <div class="jar-wrapper" id="jarWrapper">
-                    <img src="assets/images/jar-body.png" id="jarBody" alt="Jar">
+                <div class="jar-wrapper" id="fullJar">
+                    <img src="assets/images/jar-body.svg" id="jarBody" alt="Jar">
                 </div>
+            </div>
 
-                <button class="start-btn btn-orange" onclick="drawIdea()">ΚΛΗΡΩΣΗ</button>
-                <button class="start-btn" onclick="location.href='index.html'">ΠΙΣΩ</button>
-                
+            <div id="actionButtons" style="width: 100%;">
+                <button class="start-btn btn-orange" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΓΙΑ ΜΕΝΑ</button>
+            </div>
+            
+            <div id="resultButtons" style="width: 100%; display: none; flex-direction: column;">
+                <button class="start-btn" onclick="doneIdea()" style="background-color: var(--success-green); color: white;">ΤΟ ΕΚΑΝΑ!</button>
+                <button class="start-btn" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΞΑΝΑ</button>
             </div>
         </div>
 
         <footer>
-            <p>&copy; 2026 Bored Jar App</p>
+            <img src="assets/images/logo-bored-jar.svg" style="width: 70px;" alt="Bored Jar Logo">
         </footer>
-
     </div>
-
-    <script>
-        // Λήψη της κατηγορίας από το URL (π.χ. random-draw.html?category=home)
-        const urlParams = new URLSearchParams(window.location.search);
-        const currentCategory = urlParams.get('category') || 'all';
-
-        function drawIdea() {
-            // 1. Φόρτωση ιδεών από το localStorage
-            const allIdeas = JSON.parse(localStorage.getItem('ideas')) || [];
-            
-            // 2. Φιλτράρισμα βάσει κατηγορίας
-            let filteredIdeas = allIdeas;
-            if (currentCategory !== 'all') {
-                filteredIdeas = allIdeas.filter(idea => idea.category === currentCategory);
-            }
-
-            // Έλεγχος αν υπάρχουν ιδέες
-            if (filteredIdeas.length === 0) {
-                alert("Δεν υπάρχουν ιδέες σε αυτή την κατηγορία! Πρόσθεσε μερικές πρώτα.");
-                return;
-            }
-
-            // 3. Προετοιμασία Animation (Reset)
-            const jarBody = document.getElementById('jarBody');
-            const cloud = document.getElementById('cloudContainer');
-            const textDisplay = document.getElementById('selectedIdea');
-
-            cloud.classList.remove('cloud-active');
-            jarBody.classList.add('shaking');
-
-            // 4. Η "ιεροτελεστία" της κλήρωσης (μετά από 1 δευτερόλεπτο κουνήματος)
-            setTimeout(() => {
-                jarBody.classList.remove('shaking');
-
-                // Τυχαία επιλογή
-                const randomIndex = Math.floor(Math.random() * filteredIdeas.length);
-                const result = filteredIdeas[randomIndex].text;
-
-                // Εμφάνιση αποτελέσματος
-                textDisplay.innerText = result;
-                cloud.classList.add('cloud-active');
-
-            }, 1000);
-        }
-    </script>
-
+    <script src="script.js"></script>
 </body>
 </html>
 
