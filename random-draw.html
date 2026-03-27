@@ -16,23 +16,24 @@
 
         <div class="main-card">
             <div class="draw-area">
+                
                 <div id="cloudContainer">
                     <img src="assets/images/cloud-bubble.svg" id="cloudImg" alt="Cloud">
-                    <div id="selectedIdea">Εδώ θα μπει η ιδέα!</div>
+                    <div id="selectedIdea">Πάτησε το κουμπί!</div>
                 </div>
 
                 <div class="jar-wrapper" id="fullJar">
                     <img src="assets/images/jar-body.svg" id="jarBody" alt="Jar">
                 </div>
-            </div>
 
-            <div id="actionButtons" style="width: 100%;">
-                <button class="start-btn btn-orange" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΓΙΑ ΜΕΝΑ</button>
-            </div>
-            
-            <div id="resultButtons" style="width: 100%; display: none; flex-direction: column;">
-                <button class="start-btn" onclick="doneIdea()" style="background-color: var(--success-green); color: white;">ΤΟ ΕΚΑΝΑ!</button>
-                <button class="start-btn" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΞΑΝΑ</button>
+                <div id="actionButtons" style="width: 100%; margin-top: 30px;">
+                    <button class="start-btn btn-orange" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΓΙΑ ΜΕΝΑ</button>
+                </div>
+                
+                <div id="resultButtons" style="width: 100%; display: none; flex-direction: column; margin-top: 20px;">
+                    <button class="start-btn" onclick="doneIdea()" style="background-color: var(--success-green); color: white;">ΤΟ ΕΚΑΝΑ!</button>
+                    <button class="start-btn" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΞΑΝΑ</button>
+                </div>
             </div>
         </div>
 
@@ -40,7 +41,7 @@
             <img src="assets/images/logo-bored-jar.svg" style="width: 70px;" alt="Bored Jar Logo">
         </footer>
     </div>
+    
     <script src="script.js"></script>
 </body>
 </html>
-
