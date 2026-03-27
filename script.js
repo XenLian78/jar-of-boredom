@@ -3,6 +3,7 @@
 // Αρχικοποίηση λίστας ιδεών & μετατροπή (migration) παλιών ιδεών σε Objects
 let rawIdeas = JSON.parse(localStorage.getItem('myIdeas')) || [];
 let savedIdeas = rawIdeas.map(idea => {
+    // Αν είναι παλιά ιδέα (απλό κείμενο), τη μετατρέπουμε στη νέα μορφή με active: true
     if (typeof idea === 'string') {
         return { text: idea, active: true };
     }
@@ -45,6 +46,7 @@ function displayIdeas() {
             const item = document.createElement('div');
             item.className = 'idea-item';
             
+            // Οπτική αλλαγή αν δεν είναι ενεργό
             const textStyle = !idea.active ? 'text-decoration: line-through; opacity: 0.5;' : '';
 
             item.innerHTML = `
@@ -77,6 +79,7 @@ if (jarList) displayIdeas();
 let currentIdeaIndex = -1;
 
 window.drawIdea = function() {
+    // Παίρνουμε μόνο τις ιδέες που είναι τσεκαρισμένες (active: true)
     const availableIdeas = savedIdeas.filter(idea => idea.active);
 
     if (availableIdeas.length === 0) {
@@ -91,18 +94,23 @@ window.drawIdea = function() {
     const actionBtn = document.getElementById('actionButtons');
     const resultBtns = document.getElementById('resultButtons');
 
+    // Reset του UI (για να δουλεύει σωστά το "ΔΙΑΛΕΞΕ ΞΑΝΑ")
     cloud.classList.remove('cloud-active');
     resultBtns.style.display = 'none';
     actionBtn.style.display = 'none';
     jar.classList.add('shaking');
     
     setTimeout(() => {
+        // Stop shaking
         jar.classList.remove('shaking');
 
+        // Επιλογή νέας ιδέας
         const randomIndex = Math.floor(Math.random() * availableIdeas.length);
         const choice = availableIdeas[randomIndex];
         
+        // Βρίσκουμε το πραγματικό index (στο γενικό array) για να ξέρουμε ποια να διαγράψουμε αν πατήσει "ΤΟ ΕΚΑΝΑ"
         currentIdeaIndex = savedIdeas.findIndex(i => i.text === choice.text);
+        
         ideaText.innerText = choice.text;
 
         setTimeout(() => {
@@ -111,7 +119,7 @@ window.drawIdea = function() {
             resultBtns.style.flexDirection = 'column';
         }, 300);
 
-    }, 1200);
+    }, 1200); // 1.2s shaking time
 };
 
 window.doneIdea = function() {
@@ -122,4 +130,3 @@ window.doneIdea = function() {
         window.location.href = 'jar-view.html';
     }
 };
-
