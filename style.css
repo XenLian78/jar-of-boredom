@@ -247,7 +247,7 @@ header {
     width: 100%;
     display: block;
     position: absolute;
-    bottom: -250;
+    bottom: -300;
     z-index: 1;
 }
 
@@ -268,8 +268,8 @@ header {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 110%;
+    height: 110%;
     object-fit: contain; /* Το SVG γεμίζει το container αναλογικά */
     z-index: -1;
 }
