@@ -275,12 +275,11 @@ header {
 
 #selectedIdea {
     position: relative; 
-    top: -20px;
     z-index: 4;
     width: 75%; /* ΔΙΟΡΘΩΣΗ 3: Text Wrapping μέσα στο σύννεφο */
     font-weight: bold;
     color: var(--dark-text);
-    font-size: 19px;
+    font-size: 16px;
     text-align: center; wrap;
     word-wrap: break-word; /* Σπάει τις λέξεις για να μη βγαίνουν έξω */
     overflow-wrap: break-word;
