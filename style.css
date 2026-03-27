@@ -219,10 +219,10 @@ header {
 
 .jar-wrapper { position: relative; width: 180px; }
 
-/* Το #jarLid αφαιρέθηκε από το CSS */
+
 
 #jarBody {
-    width: 100%;
+    width: 150%;
     display: block;
     position: relative;
     z-index: 1;
