@@ -275,7 +275,7 @@ header {
 
 #selectedIdea {
     position: relative; 
-    bottom: -100;
+    bottom: -200;
     z-index: 4;
     width: 85%; /* ΔΙΟΡΘΩΣΗ 3: Text Wrapping μέσα στο σύννεφο */
     font-weight: bold;
