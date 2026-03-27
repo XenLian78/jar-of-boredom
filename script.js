@@ -1,7 +1,18 @@
 
 
-// Αρχικοποίηση λίστας ιδεών από το LocalStorage
-let savedIdeas = JSON.parse(localStorage.getItem('myIdeas')) || [];
+// Αρχικοποίηση λίστας ιδεών & μετατροπή (migration) παλιών ιδεών σε Objects
+let rawIdeas = JSON.parse(localStorage.getItem('myIdeas')) || [];
+let savedIdeas = rawIdeas.map(idea => {
+    // Αν είναι παλιά ιδέα (απλό κείμενο), τη μετατρέπουμε στη νέα μορφή με active: true
+    if (typeof idea === 'string') {
+        return { text: idea, active: true };
+    }
+    return idea;
+});
+
+function saveToStorage() {
+    localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
+}
 
 // --- ΣΕΛΙΔΑ: add-idea.html ---
 const addBtn = document.getElementById('addBtn');
@@ -11,8 +22,8 @@ if (addBtn && ideaInput) {
     addBtn.addEventListener('click', () => {
         const newIdea = ideaInput.value.trim();
         if (newIdea !== "") {
-            savedIdeas.push(newIdea);
-            localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
+            savedIdeas.push({ text: newIdea, active: true });
+            saveToStorage();
             alert("Η ιδέα '" + newIdea + "' μπήκε στο βάζο!");
             ideaInput.value = "";
         } else {
@@ -34,9 +45,13 @@ function displayIdeas() {
         savedIdeas.forEach((idea, index) => {
             const item = document.createElement('div');
             item.className = 'idea-item';
+            
+            // Οπτική αλλαγή αν δεν είναι ενεργό
+            const textStyle = !idea.active ? 'text-decoration: line-through; opacity: 0.5;' : '';
+
             item.innerHTML = `
-                <input type="checkbox" checked onchange="this.parentElement.classList.toggle('disabled-idea')">
-                <span class="idea-text">${idea}</span>
+                <input type="checkbox" ${idea.active ? 'checked' : ''} onchange="toggleIdea(${index})">
+                <span class="idea-text" style="${textStyle}">${idea.text}</span>
                 <span class="delete-btn" onclick="deleteIdea(${index})">×</span>
             `;
             jarList.appendChild(item);
@@ -44,10 +59,16 @@ function displayIdeas() {
     }
 }
 
+window.toggleIdea = function(index) {
+    savedIdeas[index].active = !savedIdeas[index].active;
+    saveToStorage();
+    displayIdeas();
+};
+
 window.deleteIdea = function(index) {
     if (confirm("Θέλεις σίγουρα να διαγράψεις αυτή την ιδέα;")) {
         savedIdeas.splice(index, 1);
-        localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
+        saveToStorage();
         displayIdeas();
     }
 };
@@ -56,35 +77,41 @@ if (jarList) displayIdeas();
 
 // --- ΣΕΛΙΔΑ: random-draw.html ---
 let currentIdeaIndex = -1;
-let availableIdeas = [...savedIdeas]; 
 
 window.drawIdea = function() {
+    // Παίρνουμε μόνο τις ιδέες που είναι τσεκαρισμένες (active: true)
+    const availableIdeas = savedIdeas.filter(idea => idea.active);
+
     if (availableIdeas.length === 0) {
-        alert("Το βάζο είναι άδειο! Πρόσθεσε πρώτα μερικές ιδέες.");
+        alert("Δεν υπάρχουν ενεργές ιδέες στο βάζο! Πρόσθεσε ή ενεργοποίησε μερικές.");
         window.location.href = 'add-idea.html';
         return;
     }
 
     const jar = document.getElementById('fullJar');
-    // lid removed
     const cloud = document.getElementById('cloudContainer');
     const ideaText = document.getElementById('selectedIdea');
     const actionBtn = document.getElementById('actionButtons');
     const resultBtns = document.getElementById('resultButtons');
 
+    // Reset του UI (για να δουλεύει σωστά το "ΔΙΑΛΕΞΕ ΞΑΝΑ")
+    cloud.classList.remove('cloud-active');
+    resultBtns.style.display = 'none';
+    actionBtn.style.display = 'none';
     jar.classList.add('shaking');
-    actionBtn.style.display = 'none'; 
     
     setTimeout(() => {
-        // Stop shaking and show cloud
+        // Stop shaking
         jar.classList.remove('shaking');
-        // lid-off removed
 
+        // Επιλογή νέας ιδέας
         const randomIndex = Math.floor(Math.random() * availableIdeas.length);
         const choice = availableIdeas[randomIndex];
-        currentIdeaIndex = savedIdeas.indexOf(choice);
         
-        ideaText.innerText = choice;
+        // Βρίσκουμε το πραγματικό index (στο γενικό array) για να ξέρουμε ποια να διαγράψουμε αν πατήσει "ΤΟ ΕΚΑΝΑ"
+        currentIdeaIndex = savedIdeas.findIndex(i => i.text === choice.text);
+        
+        ideaText.innerText = choice.text;
 
         setTimeout(() => {
             cloud.classList.add('cloud-active');
@@ -98,8 +125,9 @@ window.drawIdea = function() {
 window.doneIdea = function() {
     if (currentIdeaIndex > -1) {
         savedIdeas.splice(currentIdeaIndex, 1);
-        localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
+        saveToStorage();
         alert("Μπράβο! Η ιδέα ολοκληρώθηκε και αφαιρέθηκε από το βάζο.");
         window.location.href = 'jar-view.html';
     }
 };
+
