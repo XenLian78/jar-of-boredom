@@ -79,7 +79,7 @@ header {
     align-items: center;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     /* ΔΙΟΡΘΩΣΗ: overflow visible για να μην κόβεται το σύννεφο */
-    overflow: visible; 
+    overflow: hidden; 
     position: relative;
 }
 
@@ -177,7 +177,7 @@ header {
     padding-right: 5px;
 }
 
-/* --- 9. ΚΛΗΡΩΣΗ & ΣΥΝΝΕΦΟ (ΤΕΛΙΚΗ ΔΙΟΡΘΩΣΗ) --- */
+/* --- 9. ΚΛΗΡΩΣΗ & ΣΥΝΝΕΦΟ (ΕΝΗΜΕΡΩΜΕΝΟ) --- */
 .draw-area {
     position: relative;
     width: 100%;
@@ -190,9 +190,9 @@ header {
 
 .jar-wrapper { 
     position: relative; 
-    width: 210px; /* Ελαφρώς μικρότερο για καλύτερη αναλογία */
-    /* ΔΙΟΡΘΩΣΗ: Αυξάνουμε το margin-top για να κατέβει το βάζο και να χωρέσει το σύννεφο πάνω */
-    margin-top: 110px; 
+    width: 210px;
+    /* ΔΙΟΡΘΩΣΗ: Μετακίνηση όλου του setup χαμηλότερα */
+    margin-top: 160px; 
 }
 
 #jarBody {
@@ -204,18 +204,17 @@ header {
 
 #cloudContainer {
     position: absolute;
-    /* ΔΙΟΡΘΩΣΗ: Μειώνουμε το top για να "κάθεται" το σύννεφο κοντά στο καπάκι */
-    top: -95px; 
-    width: 105%; /* Λίγο μεγαλύτερο για να μη φαίνεται μικρό δίπλα στο βάζο */
+    /* ΔΙΟΡΘΩΣΗ: Πλησίασμα στο καπάκι */
+    top: -80px; 
+    /* ΔΙΟΡΘΩΣΗ: Μεγάλωμα σύννεφου */
+    width: 115%; 
     aspect-ratio: 1.4 / 1; 
     display: none; 
     justify-content: center;
     align-items: center;
     z-index: 3;
-    /* Padding για να σπρώξουμε το κείμενο στην κοιλιά του σύννεφου */
-    padding-bottom: 40px; 
-    padding-left: 15px;
-    padding-right: 15px;
+    /* ΔΙΟΡΘΩΣΗ: Περισσότερος χώρος για να "ανασαινει" το κείμενο εσωτερικά */
+    padding: 30px 25px 60px 25px; /* Top, sides, bottom */
 }
 
 #cloudImg {
@@ -231,11 +230,11 @@ header {
 #selectedIdea {
     position: relative;
     z-index: 4;
-    /* ΔΙΟΡΘΩΣΗ: Στενεύουμε το πλάτος του κειμένου για αυστηρό wrapping */
     width: 70%; 
     font-weight: bold;
     color: var(--dark-text);
-    font-size: 17px; /* Ελαφρώς μικρότερο για να χωράνε μεγάλες προτάσεις */
+    /* ΔΙΟΡΘΩΣΗ: Ελαφρώς μεγαλύτερη γραμματοσειρά αφού μεγάλωσε το σύννεφο */
+    font-size: 19px; 
     text-align: center;
     line-height: 1.2;
     word-wrap: break-word;
