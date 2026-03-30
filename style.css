@@ -1,3 +1,5 @@
+
+
 /* --- 1. DESIGN SYSTEM & ΜΕΤΑΒΛΗΤΕΣ --- */
 :root {
     --bg-main: #AAB2C5;
@@ -78,8 +80,10 @@ header {
     flex-direction: column;
     align-items: center;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    overflow: hidden; /* ΔΙΟΡΘΩΣΗ 1: Εξαφανίζει τη μπάρα από την κάρτα (add-idea.html) */
+    overflow: hidden; 
     position: relative;
+    /* ΔΙΟΡΘΩΣΗ: Προσθήκη padding top για να μην κολλάει το σύννεφο πάνω */
+    padding-top: 40px; 
 }
 
 /* --- 5. GRID ΚΑΤΗΓΟΡΙΩΝ (INDEX) --- */
@@ -160,10 +164,10 @@ header {
 /* --- 8. ΦΟΡΜΑ & ΛΙΣΤΑ ΙΔΕΩΝ --- */
 .idea-input {
     width: 100%;
-    padding: 16px;
+    padding: 14px;
     border: 2px solid #E0E4EC;
     border-radius: 15px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-size: 16px;
     outline: none;
 }
@@ -171,7 +175,7 @@ header {
 .idea-list-container {
     width: 100%;
     flex-grow: 1;
-    overflow-y: auto; /* ΔΙΟΡΘΩΣΗ 1: Η μπάρα παραμένει ΜΟΝΟ εδώ */
+    overflow-y: auto; 
     margin-bottom: 15px;
     padding-right: 5px;
     scrollbar-width: thin;
@@ -227,18 +231,19 @@ header {
 .draw-area {
     position: relative;
     width: 100%;
-    height: 360px;
+    flex-grow: 1; /* ΔΙΟΡΘΩΣΗ: Καταλαμβάνει όλο τον διαθέσιμο χώρο */
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center; /* Κεντράρει το περιεχόμενο κάθετα */
     align-items: center;
-    margin-top: 60px;
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
 .jar-wrapper { 
     position: relative; 
-    width: 230px; 
+    width: 200px; /* Ελαφρώς μικρότερο για καλύτερο fit */
+    margin-top: 60px; /* Χώρος για να "κάτσει" το σύννεφο από πάνω */
 }
 
 #jarBody {
@@ -248,12 +253,11 @@ header {
     z-index: 1;
 }
 
-/* ΔΙΟΡΘΩΣΗ 3: Αναλογικό Σύννεφο SVG */
 #cloudContainer {
     position: absolute;
-    top: 0px;
-    width: 100%; 
-    aspect-ratio: 1.4 / 1; /* Κλειδώνει την αναλογία του SVG */
+    top: -90px; /* ΔΙΟΡΘΩΣΗ: Τοποθέτηση πάνω από το βάζο */
+    width: 120%; /* Λίγο μεγαλύτερο από το βάζο */
+    aspect-ratio: 1.4 / 1; 
     display: none; 
     justify-content: center;
     align-items: center;
@@ -262,23 +266,24 @@ header {
 
 #cloudImg {
     position: absolute;
-    top: 120;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: contain; /* Το SVG γεμίζει το container αναλογικά */
+    object-fit: contain;
     z-index: -1;
 }
 
 #selectedIdea {
     position: relative;
     z-index: 4;
-    width: 70%; /* ΔΙΟΡΘΩΣΗ 3: Text Wrapping μέσα στο σύννεφο */
+    width: 75%; 
     font-weight: bold;
     color: var(--dark-text);
-    font-size: 18px;
+    font-size: 17px;
     text-align: center;
-    word-wrap: break-word; /* Σπάει τις λέξεις για να μη βγαίνουν έξω */
+    word-wrap: break-word;
+    margin-bottom: 10px; /* Ευθυγράμμιση κειμένου μέσα στο SVG */
 }
 
 @keyframes shake {
@@ -301,3 +306,4 @@ footer {
     padding: 10px;
     margin-top: auto;
 }
+
