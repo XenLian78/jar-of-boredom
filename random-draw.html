@@ -1,10 +1,8 @@
-
-
 <!DOCTYPE html>
 <html lang="el">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>The jar of Boredom - Κλήρωση!</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -26,13 +24,15 @@
                 </div>
             </div>
 
-            <div id="actionButtons" style="width: 100%;">
-                <button class="start-btn btn-orange" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΓΙΑ ΜΕΝΑ</button>
-            </div>
-            
-            <div id="resultButtons" style="width: 100%; display: none; flex-direction: column;">
-                <button class="start-btn" onclick="doneIdea()" style="background-color: var(--success-green); color: white;">ΤΟ ΕΚΑΝΑ!</button>
-                <button class="start-btn" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΞΑΝΑ</button>
+            <div class="controls-area">
+                <div id="actionButtons" style="width: 100%;">
+                    <button class="start-btn btn-orange" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΓΙΑ ΜΕΝΑ</button>
+                </div>
+                
+                <div id="resultButtons" style="width: 100%; display: none; flex-direction: column;">
+                    <button class="start-btn" onclick="doneIdea()" style="background-color: var(--success-green); color: white;">ΤΟ ΕΚΑΝΑ!</button>
+                    <button class="start-btn" onclick="drawIdea()">ΔΙΑΛΕΞΕ ΞΑΝΑ</button>
+                </div>
             </div>
         </div>
 
