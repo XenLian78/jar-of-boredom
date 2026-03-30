@@ -1,5 +1,3 @@
-
-
 /* --- 1. DESIGN SYSTEM & ΜΕΤΑΒΛΗΤΕΣ --- */
 :root {
     --bg-main: #AAB2C5;
@@ -24,6 +22,7 @@ body {
     align-items: center;
     min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden; /* Απαγορεύει το scroll στην κύρια οθόνη */
 }
 
 /* --- 2. ΤΟ ΠΛΑΙΣΙΟ (RESPONSIVE) --- */
@@ -79,7 +78,7 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between; /* ΣΠΡΩΧΝΕΙ ΤΑ ΚΟΥΜΠΙΑ ΣΤΟ ΤΕΛΟΣ */
+    /* Αφαιρέθηκε το space-between για να σταματήσει το "χορευτικό" των στοιχείων */
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     overflow: hidden;
     position: relative;
@@ -117,7 +116,16 @@ header {
 
 .cat:hover img { transform: scale(1.1); }
 
-/* --- 6. ΚΟΥΜΠΙΑ --- */
+/* --- 6. ΚΟΥΜΠΙΑ & ΣΤΑΘΕΡΟΣ ΧΩΡΟΣ ΕΛΕΓΧΟΥ --- */
+.controls-area {
+    width: 100%;
+    min-height: 140px; /* ΚΛΕΙΔΩΝΕΙ ΤΟΝ ΧΩΡΟ ΓΙΑ ΤΑ ΚΟΥΜΠΙΑ */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: auto; /* Σπρώχνει όλο το container στο κάτω μέρος της κάρτας */
+}
+
 .start-btn {
     background-color: var(--btn-gray);
     color: var(--dark-text);
@@ -226,34 +234,33 @@ header {
     flex-shrink: 0;
 }
 
-/* --- 9. ΚΛΗΡΩΣΗ & ΣΥΝΝΕΦΟ (ΔΙΟΡΘΩΜΕΝΟ) --- */
+/* --- 9. ΚΛΗΡΩΣΗ & ΣΥΝΝΕΦΟ (ΚΛΕΙΔΩΜΕΝΟ) --- */
 .draw-area {
     position: relative;
     width: 100%;
-    flex-grow: 1; /* ΠΙΑΝΕΙ ΟΛΟ ΤΟ ΧΩΡΟ ΓΙΑ ΝΑ ΣΠΡΩΞΕΙ ΤΟ ΒΑΖΟ ΧΑΜΗΛΑ */
+    flex-grow: 1; 
     display: flex;
     flex-direction: column;
-    justify-content: flex-end; /* ΤΟΠΟΘΕΤΕΙ ΤΟ ΒΑΖΟ ΠΡΟΣ ΤΑ ΚΑΤΩ */
+    justify-content: center; /* ΚΕΝΤΡΑΡΕΙ ΤΟ ΒΑΖΟ ΣΤΟΝ ΕΝΑΠΟΜΕΙΝΑΝΤΑ ΧΩΡΟ */
     align-items: center;
-    padding-bottom: 40px; /* ΑΠΟΣΤΑΣΗ ΒΑΖΟΥ ΑΠΟ ΤΑ ΚΟΥΜΠΙΑ */
+    margin-top: 30px; /* Ασφάλεια για να μην βρίσκει το σύννεφο στο top nav */
 }
 
 .jar-wrapper { 
     position: relative; 
-    width: 170px; /* ΕΛΑΦΡΩΣ ΠΙΟ ΜΙΚΡΟ ΒΑΖΟ ΓΙΑ ΧΩΡΟ */
+    width: 160px; /* Ελαφρώς πιο μικρό για να έχει αέρα */
+    z-index: 1;
 }
 
 #jarBody {
     width: 100%;
     display: block;
-    position: relative;
-    z-index: 1;
 }
 
 #cloudContainer {
     position: absolute;
-    top: -105px; /* ΘΕΣΗ ΣΥΝΝΕΦΟΥ ΠΑΝΩ ΑΠΟ ΤΟ ΒΑΖΟ */
-    width: 105%; /* ΜΙΚΡΥΝΕ ΛΙΓΟ ΓΙΑ ΝΑ ΜΗΝ ΧΤΥΠΑΕΙ ΣΤΑ ΠΛΑΪΝΑ */
+    top: -65px; /* ΚΑΤΕΒΗΚΕ: Πιο κοντά στο καπάκι του βάζου */
+    width: 85%; /* ΜΙΚΡΥΝΕ: Για να μην ακουμπάει τις άκρες της κάρτας */
     aspect-ratio: 1.4 / 1;
     display: none; 
     justify-content: center;
@@ -277,10 +284,10 @@ header {
     width: 75%; 
     font-weight: bold;
     color: var(--dark-text);
-    font-size: 16px; /* ΜΙΚΡΥΝΕ ΛΙΓΟ ΤΟ TEXT ΓΙΑ ΝΑ ΧΩΡΑΕΙ ΣΤΟ ΜΙΚΡΟΤΕΡΟ ΣΥΝΝΕΦΟ */
+    font-size: 15px;
     text-align: center;
     word-wrap: break-word;
-    margin-top: -10px; /* ΕΥΘΥΓΡΑΜΜΙΣΗ ΚΕΙΜΕΝΟΥ ΜΕΣΑ ΣΤΟ SVG */
+    padding-top: 5px; /* Κεντράρει το κείμενο μέσα στο σχήμα του σύννεφου */
 }
 
 @keyframes shake {
