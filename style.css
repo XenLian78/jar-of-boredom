@@ -79,11 +79,10 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between; /* ΣΠΡΩΧΝΕΙ ΤΑ ΚΟΥΜΠΙΑ ΣΤΟ ΤΕΛΟΣ */
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-    overflow: hidden; 
+    overflow: hidden;
     position: relative;
-    /* ΔΙΟΡΘΩΣΗ: Προσθήκη padding top για να μην κολλάει το σύννεφο πάνω */
-    padding-top: 40px; 
 }
 
 /* --- 5. GRID ΚΑΤΗΓΟΡΙΩΝ (INDEX) --- */
@@ -164,10 +163,10 @@ header {
 /* --- 8. ΦΟΡΜΑ & ΛΙΣΤΑ ΙΔΕΩΝ --- */
 .idea-input {
     width: 100%;
-    padding: 14px;
+    padding: 16px;
     border: 2px solid #E0E4EC;
     border-radius: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-size: 16px;
     outline: none;
 }
@@ -175,7 +174,7 @@ header {
 .idea-list-container {
     width: 100%;
     flex-grow: 1;
-    overflow-y: auto; 
+    overflow-y: auto;
     margin-bottom: 15px;
     padding-right: 5px;
     scrollbar-width: thin;
@@ -227,23 +226,21 @@ header {
     flex-shrink: 0;
 }
 
-/* --- 9. ΚΛΗΡΩΣΗ & ΣΥΝΝΕΦΟ --- */
+/* --- 9. ΚΛΗΡΩΣΗ & ΣΥΝΝΕΦΟ (ΔΙΟΡΘΩΜΕΝΟ) --- */
 .draw-area {
     position: relative;
     width: 100%;
-    flex-grow: 1; /* ΔΙΟΡΘΩΣΗ: Καταλαμβάνει όλο τον διαθέσιμο χώρο */
+    flex-grow: 1; /* ΠΙΑΝΕΙ ΟΛΟ ΤΟ ΧΩΡΟ ΓΙΑ ΝΑ ΣΠΡΩΞΕΙ ΤΟ ΒΑΖΟ ΧΑΜΗΛΑ */
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Κεντράρει το περιεχόμενο κάθετα */
+    justify-content: flex-end; /* ΤΟΠΟΘΕΤΕΙ ΤΟ ΒΑΖΟ ΠΡΟΣ ΤΑ ΚΑΤΩ */
     align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    padding-bottom: 40px; /* ΑΠΟΣΤΑΣΗ ΒΑΖΟΥ ΑΠΟ ΤΑ ΚΟΥΜΠΙΑ */
 }
 
 .jar-wrapper { 
     position: relative; 
-    width: 200px; /* Ελαφρώς μικρότερο για καλύτερο fit */
-    margin-top: 60px; /* Χώρος για να "κάτσει" το σύννεφο από πάνω */
+    width: 170px; /* ΕΛΑΦΡΩΣ ΠΙΟ ΜΙΚΡΟ ΒΑΖΟ ΓΙΑ ΧΩΡΟ */
 }
 
 #jarBody {
@@ -255,9 +252,9 @@ header {
 
 #cloudContainer {
     position: absolute;
-    top: -90px; /* ΔΙΟΡΘΩΣΗ: Τοποθέτηση πάνω από το βάζο */
-    width: 120%; /* Λίγο μεγαλύτερο από το βάζο */
-    aspect-ratio: 1.4 / 1; 
+    top: -105px; /* ΘΕΣΗ ΣΥΝΝΕΦΟΥ ΠΑΝΩ ΑΠΟ ΤΟ ΒΑΖΟ */
+    width: 105%; /* ΜΙΚΡΥΝΕ ΛΙΓΟ ΓΙΑ ΝΑ ΜΗΝ ΧΤΥΠΑΕΙ ΣΤΑ ΠΛΑΪΝΑ */
+    aspect-ratio: 1.4 / 1;
     display: none; 
     justify-content: center;
     align-items: center;
@@ -280,10 +277,10 @@ header {
     width: 75%; 
     font-weight: bold;
     color: var(--dark-text);
-    font-size: 17px;
+    font-size: 16px; /* ΜΙΚΡΥΝΕ ΛΙΓΟ ΤΟ TEXT ΓΙΑ ΝΑ ΧΩΡΑΕΙ ΣΤΟ ΜΙΚΡΟΤΕΡΟ ΣΥΝΝΕΦΟ */
     text-align: center;
     word-wrap: break-word;
-    margin-bottom: 10px; /* Ευθυγράμμιση κειμένου μέσα στο SVG */
+    margin-top: -10px; /* ΕΥΘΥΓΡΑΜΜΙΣΗ ΚΕΙΜΕΝΟΥ ΜΕΣΑ ΣΤΟ SVG */
 }
 
 @keyframes shake {
@@ -306,4 +303,3 @@ footer {
     padding: 10px;
     margin-top: auto;
 }
-
