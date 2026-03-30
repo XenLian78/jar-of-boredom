@@ -246,10 +246,10 @@ header {
     margin-top: 30px; /* Ασφάλεια για να μην βρίσκει το σύννεφο στο top nav */
 }
 
-.jar-wrapper { 
+/* --- .jar-wrapper { 
     position: relative; 
     width: 160px; /* Ελαφρώς πιο μικρό για να έχει αέρα */
-    z-index: 1;
+    z-index: 1; --- */
 }
 
 #jarBody {
@@ -259,8 +259,8 @@ header {
 
 #cloudContainer {
     position: absolute;
-    top: -65px; /* ΚΑΤΕΒΗΚΕ: Πιο κοντά στο καπάκι του βάζου */
-    width: 85%; /* ΜΙΚΡΥΝΕ: Για να μην ακουμπάει τις άκρες της κάρτας */
+    top: -120px; /* ΚΑΤΕΒΗΚΕ: Πιο κοντά στο καπάκι του βάζου */
+    width: 75%; /* ΜΙΚΡΥΝΕ: Για να μην ακουμπάει τις άκρες της κάρτας */
     aspect-ratio: 1.4 / 1;
     display: none; 
     justify-content: center;
@@ -284,7 +284,7 @@ header {
     width: 75%; 
     font-weight: bold;
     color: var(--dark-text);
-    font-size: 15px;
+    font-size: 18px;
     text-align: center;
     word-wrap: break-word;
     padding-top: 5px; /* Κεντράρει το κείμενο μέσα στο σχήμα του σύννεφου */
