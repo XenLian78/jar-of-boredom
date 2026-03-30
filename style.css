@@ -262,7 +262,7 @@ header {
 
 #cloudImg {
     position: absolute;
-    top: -120;
+    top: 120;
     left: 0;
     width: 100%;
     height: 100%;
