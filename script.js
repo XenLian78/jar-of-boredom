@@ -1,132 +1,116 @@
 
 
-// Αρχικοποίηση λίστας ιδεών & μετατροπή (migration) παλιών ιδεών σε Objects
-let rawIdeas = JSON.parse(localStorage.getItem('myIdeas')) || [];
-let savedIdeas = rawIdeas.map(idea => {
-    // Αν είναι παλιά ιδέα (απλό κείμενο), τη μετατρέπουμε στη νέα μορφή με active: true
-    if (typeof idea === 'string') {
-        return { text: idea, active: true };
-    }
-    return idea;
-});
+/* --- 1. ΔΙΑΧΕΙΡΙΣΗ ΔΕΔΟΜΕΝΩΝ (LOCAL STORAGE) --- */
 
-function saveToStorage() {
-    localStorage.setItem('myIdeas', JSON.stringify(savedIdeas));
+// Συνάρτηση που παίρνει τις ιδέες από την αποθήκη του browser
+function getIdeas() {
+    const savedIdeas = localStorage.getItem('boredomJarIdeas');
+    return savedIdeas ? JSON.parse(savedIdeas) : [];
 }
 
-// --- ΣΕΛΙΔΑ: add-idea.html ---
+// Συνάρτηση που σώζει τις ιδέες στην αποθήκη του browser
+function saveIdeas(ideas) {
+    localStorage.setItem('boredomJarIdeas', JSON.stringify(ideas));
+}
+
+/* --- 2. ΛΕΙΤΟΥΡΓΙΕΣ ΣΕΛΙΔΑΣ (ADD IDEA) --- */
 const addBtn = document.getElementById('addBtn');
 const ideaInput = document.getElementById('ideaInput');
 
-if (addBtn && ideaInput) {
+if (addBtn) {
     addBtn.addEventListener('click', () => {
-        const newIdea = ideaInput.value.trim();
-        if (newIdea !== "") {
-            savedIdeas.push({ text: newIdea, active: true });
-            saveToStorage();
-            alert("Η ιδέα '" + newIdea + "' μπήκε στο βάζο!");
-            ideaInput.value = "";
-        } else {
-            alert("Γράψε κάτι πρώτα!");
+        const text = ideaInput.value.trim();
+        if (text) {
+            const ideas = getIdeas();
+            ideas.push({ text: text, completed: false });
+            saveIdeas(ideas);
+            ideaInput.value = '';
+            alert('Η ιδέα μπήκε στο βάζο!');
         }
     });
 }
 
-// --- ΣΕΛΙΔΑ: jar-view.html ---
+/* --- 3. ΛΕΙΤΟΥΡΓΙΕΣ ΣΕΛΙΔΑΣ (JAR VIEW) --- */
 const jarList = document.getElementById('jarList');
 
-function displayIdeas() {
+function renderJar() {
     if (!jarList) return;
-    jarList.innerHTML = ""; 
+    const ideas = getIdeas();
+    jarList.innerHTML = '';
 
-    if (savedIdeas.length === 0) {
-        jarList.innerHTML = "<p style='text-align:center; color:#999; margin-top:20px; font-size: 16px;'>Το βάζο είναι άδειο!</p>";
-    } else {
-        savedIdeas.forEach((idea, index) => {
-            const item = document.createElement('div');
-            item.className = 'idea-item';
-            
-            // Οπτική αλλαγή αν δεν είναι ενεργό
-            const textStyle = !idea.active ? 'text-decoration: line-through; opacity: 0.5;' : '';
-
-            item.innerHTML = `
-                <input type="checkbox" ${idea.active ? 'checked' : ''} onchange="toggleIdea(${index})">
-                <span class="idea-text" style="${textStyle}">${idea.text}</span>
-                <span class="delete-btn" onclick="deleteIdea(${index})">×</span>
-            `;
-            jarList.appendChild(item);
-        });
-    }
+    ideas.forEach((idea, index) => {
+        const div = document.createElement('div');
+        div.className = 'idea-item';
+        div.innerHTML = `
+            <input type="checkbox" ${idea.completed ? 'checked' : ''} onchange="toggleIdea(${index})">
+            <span class="idea-text" style="${idea.completed ? 'text-decoration: line-through; opacity: 0.6;' : ''}">${idea.text}</span>
+            <span class="delete-btn" onclick="deleteIdea(${index})">×</span>
+        `;
+        jarList.appendChild(div);
+    });
 }
 
 window.toggleIdea = function(index) {
-    savedIdeas[index].active = !savedIdeas[index].active;
-    saveToStorage();
-    displayIdeas();
+    const ideas = getIdeas();
+    ideas[index].completed = !ideas[index].completed;
+    saveIdeas(ideas);
+    renderJar();
 };
 
 window.deleteIdea = function(index) {
-    if (confirm("Θέλεις σίγουρα να διαγράψεις αυτή την ιδέα;")) {
-        savedIdeas.splice(index, 1);
-        saveToStorage();
-        displayIdeas();
-    }
+    const ideas = getIdeas();
+    ideas.splice(index, 1);
+    saveIdeas(ideas);
+    renderJar();
 };
 
-if (jarList) displayIdeas();
+// Αρχικό φόρτωμα αν είμαστε στη σελίδα του βάζου
+if (jarList) {
+    renderJar();
+}
 
-// --- ΣΕΛΙΔΑ: random-draw.html ---
-let currentIdeaIndex = -1;
-
+/* --- 4. ΛΕΙΤΟΥΡΓΙΕΣ ΣΕΛΙΔΑΣ (RANDOM DRAW) --- */
 window.drawIdea = function() {
-    // Παίρνουμε μόνο τις ιδέες που είναι τσεκαρισμένες (active: true)
-    const availableIdeas = savedIdeas.filter(idea => idea.active);
-
-    if (availableIdeas.length === 0) {
-        alert("Δεν υπάρχουν ενεργές ιδέες στο βάζο! Πρόσθεσε ή ενεργοποίησε μερικές.");
-        window.location.href = 'add-idea.html';
+    const ideas = getIdeas().filter(i => !i.completed); // Μόνο όσες δεν έχουν γίνει
+    if (ideas.length === 0) {
+        alert('Το βάζο είναι άδειο ή όλες οι ιδέες έχουν ολοκληρωθεί!');
         return;
     }
 
-    const jar = document.getElementById('fullJar');
+    const jarElement = document.getElementById('fullJar');
     const cloud = document.getElementById('cloudContainer');
-    const ideaText = document.getElementById('selectedIdea');
-    const actionBtn = document.getElementById('actionButtons');
-    const resultBtns = document.getElementById('resultButtons');
+    const textElem = document.getElementById('selectedIdea');
+    const actionButtons = document.getElementById('actionButtons');
+    const resultButtons = document.getElementById('resultButtons');
 
-    // Reset του UI (για να δουλεύει σωστά το "ΔΙΑΛΕΞΕ ΞΑΝΑ")
+    // Εφέ κουνήματος
+    jarElement.classList.add('shaking');
     cloud.classList.remove('cloud-active');
-    resultBtns.style.display = 'none';
-    actionBtn.style.display = 'none';
-    jar.classList.add('shaking');
-    
+
     setTimeout(() => {
-        // Stop shaking
-        jar.classList.remove('shaking');
+        jarElement.classList.remove('shaking');
+        const randomIndex = Math.floor(Math.random() * ideas.length);
+        const chosen = ideas[randomIndex];
 
-        // Επιλογή νέας ιδέας
-        const randomIndex = Math.floor(Math.random() * availableIdeas.length);
-        const choice = availableIdeas[randomIndex];
+        textElem.innerText = chosen.text;
+        cloud.classList.add('cloud-active');
         
-        // Βρίσκουμε το πραγματικό index (στο γενικό array) για να ξέρουμε ποια να διαγράψουμε αν πατήσει "ΤΟ ΕΚΑΝΑ"
-        currentIdeaIndex = savedIdeas.findIndex(i => i.text === choice.text);
+        // Αλλαγή κουμπιών
+        actionButtons.style.display = 'none';
+        resultButtons.style.display = 'flex';
         
-        ideaText.innerText = choice.text;
-
-        setTimeout(() => {
-            cloud.classList.add('cloud-active');
-            resultBtns.style.display = 'flex';
-            resultBtns.style.flexDirection = 'column';
-        }, 300);
-
-    }, 1200); // 1.2s shaking time
+        // Αποθηκεύουμε προσωρινά ποια ιδέα επιλέχθηκε για το "Done"
+        window.currentIdeaText = chosen.text;
+    }, 1200);
 };
 
 window.doneIdea = function() {
-    if (currentIdeaIndex > -1) {
-        savedIdeas.splice(currentIdeaIndex, 1);
-        saveToStorage();
-        alert("Μπράβο! Η ιδέα ολοκληρώθηκε και αφαιρέθηκε από το βάζο.");
+    const ideas = getIdeas();
+    const index = ideas.findIndex(i => i.text === window.currentIdeaText);
+    if (index !== -1) {
+        ideas[index].completed = true;
+        saveIdeas(ideas);
+        alert('Μπράβο! Η ιδέα σημειώθηκε ως ολοκληρωμένη.');
         window.location.href = 'jar-view.html';
     }
 };
