@@ -86,7 +86,7 @@ header {
 }
 
 /* --- 5. GRID ΚΑΤΗΓΟΡΙΩΝ (INDEX) --- */
-.categories-grid {
+/* ---.categories-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
@@ -115,7 +115,7 @@ header {
     font-weight: 600;
 }
 
-.cat:hover img { transform: scale(1.1); }
+.cat:hover img { transform: scale(1.1); }--- */
 
 /* --- 6. ΚΟΥΜΠΙΑ & ΣΤΑΘΕΡΟΣ ΧΩΡΟΣ ΕΛΕΓΧΟΥ --- */
 .controls-area {
@@ -312,4 +312,21 @@ footer {
     text-align: center;
     padding: 10px;
     margin-top: auto;
+}
+/* Νέο container για τον χαρακτήρα που γεμίζει το κενό */
+.main-char-container {
+    flex-grow: 1;          /* Λέει στο div να επεκταθεί σε όλο τον διαθέσιμο χώρο */
+    display: flex;
+    align-items: center;   /* Κεντράρει την εικόνα κάθετα */
+    justify-content: center;
+    width: 100%;
+    padding: 20px 0;       /* Λίγη απόσταση από τον τίτλο και το κουμπί */
+}
+
+.main-char-container img {
+    width: 100%;           /* Η εικόνα θα πιάνει όλο το πλάτος */
+    max-width: 380px;      /* Ρύθμισε αυτό το νούμερο αν την θέλεις ακόμα πιο μεγάλη */
+    height: auto;
+    max-height: 45vh;      /* Περιορισμός ύψους για να μην "πετάει" έξω το κουμπί σε μικρά κινητά */
+    object-fit: contain;
 }
