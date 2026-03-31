@@ -78,7 +78,6 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Αφαιρέθηκε το space-between για να σταματήσει το "χορευτικό" των στοιχείων */
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     overflow: hidden;
     position: relative;
@@ -241,14 +240,15 @@ header {
     flex-grow: 1; 
     display: flex;
     flex-direction: column;
-    justify-content: center; /* ΚΕΝΤΡΑΡΕΙ ΤΟ ΒΑΖΟ ΣΤΟΝ ΕΝΑΠΟΜΕΙΝΑΝΤΑ ΧΩΡΟ */
+    justify-content: flex-end; /* ΑΛΛΑΓΗ: Ευθυγραμμίζει τα στοιχεία στο κάτω μέρος για να είναι συνολικά πιο χαμηλά */
     align-items: center;
-    margin-top: 30px; /* Ασφάλεια για να μην βρίσκει το σύννεφο στο top nav */
+    padding-bottom: 25px; /* ΑΛΛΑΓΗ: Αφήνει ένα μικρό ασφαλές κενό από τα κουμπιά */
+    margin-top: 30px; 
 }
 
 .jar-wrapper { 
     position: relative; 
-    width: 160px; /* Ελαφρώς πιο μικρό για να έχει αέρα */
+    width: 160px; 
     z-index: 1;
 }
 
@@ -259,8 +259,8 @@ header {
 
 #cloudContainer {
     position: absolute;
-    top: -65px; /* ΚΑΤΕΒΗΚΕ: Πιο κοντά στο καπάκι του βάζου */
-    width: 85%; /* ΜΙΚΡΥΝΕ: Για να μην ακουμπάει τις άκρες της κάρτας */
+    bottom: 180px; /* ΑΛΛΑΓΗ: Κλειδώνει το σύννεφο σταθερά πάνω από το βάζο με βάση το κάτω μέρος */
+    width: 85%; 
     aspect-ratio: 1.4 / 1;
     display: none; 
     justify-content: center;
@@ -287,7 +287,7 @@ header {
     font-size: 15px;
     text-align: center;
     word-wrap: break-word;
-    padding-top: 5px; /* Κεντράρει το κείμενο μέσα στο σχήμα του σύννεφου */
+    padding-top: 5px; 
 }
 
 @keyframes shake {
@@ -310,4 +310,3 @@ footer {
     padding: 10px;
     margin-top: auto;
 }
-
